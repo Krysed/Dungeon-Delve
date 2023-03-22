@@ -15,6 +15,9 @@
     <ClInclude Include="..\game\src\Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\game\src\Prop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\game\src\main.cpp">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\game\src\Character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game\src\Prop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -2,4 +2,7 @@
   Character.cpp
 F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\Character.cpp(6,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\Character.cpp(7,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Prop.cpp
+  screen_gameplay.cpp
+  Generating Code...
   game-premake-main.vcxproj -> F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\_bin\Debug\game-premake-main.exe

@@ -27,6 +27,7 @@
 #include "screens.h"
 #include "raymath.h"
 #include "src/Character.h"
+#include "src/Prop.h"
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
@@ -63,7 +64,7 @@ void UpdateGameplayScreen(void)
 
     Texture2D map = LoadTexture("resources/maps/test_map1.png");
     Vector2 mapPosition{ 0.0f,0.0f };
-    Character player{windowWidth,windowHeight};
+    Character player{ windowWidth,windowHeight };
 
     while (!WindowShouldClose()) {
         if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -87,7 +88,7 @@ void UpdateGameplayScreen(void)
             player.undoMovement();
         }
         
-        EndDrawing();
+        UnloadGameplayScreen();
     }
 }
 
@@ -108,6 +109,7 @@ void DrawGameplayScreen(void)
 void UnloadGameplayScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
+    EndDrawing();
 }
 
 // Gameplay Screen should finish?
