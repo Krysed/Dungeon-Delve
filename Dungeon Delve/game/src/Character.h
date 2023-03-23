@@ -1,8 +1,9 @@
 #pragma once
 #include "raylib.h"
 #include "raymath.h"
+#include "BaseCharacter.h"
 
-class Character
+class Character : public BaseCharacter
 {
 private:
 	Texture2D texture{ LoadTexture("resources/characters/knight_idle_spritesheet.png") };
