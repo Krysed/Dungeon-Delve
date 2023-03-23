@@ -11,10 +11,6 @@ Character::Character(int windowWidth, int windowHeight)
         static_cast<float>(windowHeight) / 2.f - scale * (0.5f * width / 6.f)
     };
 }
-Vector2 Character::getWorldPos()
-{
-    return worldPosition;
-}
 
 
 
@@ -53,20 +49,4 @@ void Character::tick(float deltaTime)
     Rectangle destination{ screenPosition.x,screenPosition.y,4.0f * width / 6.f,4.0f * height };
     DrawTexturePro(texture, source, destination, Vector2{}, 0.f, WHITE);
 
-}
-
-void Character::undoMovement()
-{
-    worldPosition = worldPositionLastFrame;
-}
-
-Rectangle Character::getCollisionRec()
-{
-    return Rectangle
-    {
-        screenPosition.x,
-        screenPosition.y,
-        width * scale,
-        height * scale
-    };
 }

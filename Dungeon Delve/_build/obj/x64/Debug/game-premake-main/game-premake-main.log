@@ -4,8 +4,8 @@
 C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\game\src\Character.cpp(6,20): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
 C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\game\src\Character.cpp(7,21): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
   Enemy.cpp
-C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\game\src\Enemy.cpp(6,17): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
-C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\game\src\Enemy.cpp(7,18): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\game\src\Enemy.cpp(10,20): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\game\src\Enemy.cpp(11,18): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
   screen_gameplay.cpp
   Generowanie kodu...
   game-premake-main.vcxproj -> C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\_bin\Debug\game-premake-main.exe
