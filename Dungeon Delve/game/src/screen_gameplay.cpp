@@ -28,7 +28,7 @@
 #include "raymath.h"
 #include "src/Character.h"
 #include "src/Prop.h"
-
+#include "src/Enemy.h"
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
 //----------------------------------------------------------------------------------
@@ -74,6 +74,11 @@ void UpdateGameplayScreen(void)
         Prop { Vector2{640.f, 740.f}, LoadTexture("resources/props/Log.png") }
     };
 
+    Enemy goblin{ Vector2{},
+        LoadTexture("resources/characters/goblin_idle_spritesheet.png"),
+        LoadTexture("resources/characters/goblin_run_spritesheet.png") 
+    };
+
     while (!WindowShouldClose()) {
         if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
         {
@@ -111,6 +116,7 @@ void UpdateGameplayScreen(void)
             }
         }
 
+        goblin.tick(GetFrameTime());
         UnloadGameplayScreen();
     }
 }

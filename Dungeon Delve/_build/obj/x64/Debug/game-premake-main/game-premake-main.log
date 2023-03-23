@@ -1,13 +1,8 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: Katalog pośredni (obj\x64\Debug\game-premake-main\) zawiera pliki udostępnione z innego projektu (game-premake-main.vcxproj). Może to spowodować niepoprawne zachowanie podczas oczyszczania i ponownej kompilacji.
-  Character.cpp
-C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\game\src\Character.cpp(6,20): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
-C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\game\src\Character.cpp(7,21): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
-  main.cpp
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: The intermediate directory (obj\x64\Debug\game-premake-main\) contains files shared from another project (game-premake-main.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Enemy.cpp
+F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\Enemy.cpp(6,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\Enemy.cpp(7,18): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Prop.cpp
-  screen_ending.cpp
   screen_gameplay.cpp
-  screen_logo.cpp
-  screen_options.cpp
-  screen_title.cpp
-  Generowanie kodu...
-  game-premake-main.vcxproj -> C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\_bin\Debug\game-premake-main.exe
+  Generating Code...
+  game-premake-main.vcxproj -> F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\_bin\Debug\game-premake-main.exe

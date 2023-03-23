@@ -4,7 +4,7 @@
 class Prop
 {
 public:
-	Prop();
+	Prop() {};
 	Prop(Vector2 pos, Texture2D tex);
 	~Prop();
 	void Render(Vector2 knightPos);

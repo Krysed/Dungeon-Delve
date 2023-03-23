@@ -181,11 +181,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\game\src\Character.h" />
+    <ClInclude Include="..\game\src\Enemy.h" />
     <ClInclude Include="..\game\src\Prop.h" />
     <ClInclude Include="..\game\src\screens.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\game\src\Character.cpp" />
+    <ClCompile Include="..\game\src\Enemy.cpp" />
     <ClCompile Include="..\game\src\main.cpp" />
     <ClCompile Include="..\game\src\Prop.cpp" />
     <ClCompile Include="..\game\src\screen_ending.cpp" />
