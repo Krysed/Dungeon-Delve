@@ -1,7 +1,7 @@
 #include "src/Character.h"
 
 
-Character::Character(int windowWidth,int windowHeight)
+Character::Character(int windowWidth, int windowHeight)
 {
     width = texture.width;// / maxFrames;
     height = texture.height;
@@ -11,9 +11,9 @@ Character::Character(int windowWidth,int windowHeight)
         static_cast<float>(windowHeight) / 2.f - scale * (0.5f * width / 6.f)
     };
 }
-Vector2 Character::getWorldPos() 
+Vector2 Character::getWorldPos()
 {
-	return worldPosition;
+    return worldPosition;
 }
 
 
@@ -58,4 +58,15 @@ void Character::tick(float deltaTime)
 void Character::undoMovement()
 {
     worldPosition = worldPositionLastFrame;
+}
+
+Rectangle Character::getCollisionRec()
+{
+    return Rectangle
+    {
+        screenPosition.x,
+        screenPosition.y,
+        width * scale,
+        height * scale
+    };
 }

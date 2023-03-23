@@ -52,19 +52,27 @@ void InitGameplayScreen(void)
 void UpdateGameplayScreen(void)
 {
     // TODO: Update GAMEPLAY screen variables here!
-    
+
     // Press enter or tap to change to ENDING screen
-    
+
     //ADD GLOBAL VARIABLES
     //temp
     const int windowWidth{ 800 };
     const int windowHeight{ 600 };
 
-    const float mapScale{4.0f};
+    const float mapScale{ 4.0f };
 
     Texture2D map = LoadTexture("resources/maps/test_map1.png");
     Vector2 mapPosition{ 0.0f,0.0f };
-    Character player{ windowWidth,windowHeight };
+    Character player{ windowWidth,windowHeight }; // -- Powo³anie do ¿ycia obiektu "player" -- 
+
+    // Prop rock{ Vector2{340.f, 340.f}, LoadTexture("resources/props/Rock.png") }; // -- Powo³anie do ¿ycia jednostkowego obiektu "rock" --
+
+    Prop props[2] // -- Powo³anie do ¿ycia tablicy obiektów --
+    {
+        Prop { Vector2{340.f, 340.f}, LoadTexture("resources/props/Rock.png") },
+        Prop { Vector2{640.f, 740.f}, LoadTexture("resources/props/Log.png") }
+    };
 
     while (!WindowShouldClose()) {
         if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -78,6 +86,13 @@ void UpdateGameplayScreen(void)
         DrawTextureEx(map, mapPosition, 0.0f, mapScale, WHITE);
         player.tick(GetFrameTime());
 
+        // rock.Render(player.getWorldPos()); // -- Pozycjonowanie wzglêdem jednostkowego obiektu "player" --
+
+        for (auto prop : props)
+        {
+            prop.Render(player.getWorldPos());
+        }
+
         //checking map bounds
         if (
             player.getWorldPos().x < 0.f ||
@@ -87,7 +102,15 @@ void UpdateGameplayScreen(void)
             ) {
             player.undoMovement();
         }
-        
+
+        for (auto prop : props)
+        {
+            if (CheckCollisionRecs(prop.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
+            {
+                player.undoMovement();
+            }
+        }
+
         UnloadGameplayScreen();
     }
 }
@@ -96,7 +119,7 @@ void UpdateGameplayScreen(void)
 void DrawGameplayScreen(void)
 {
     // TODO: Draw GAMEPLAY screen here!
-    
+
     /*
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), PURPLE);
     DrawTextEx(font, "GAMEPLAY SCREEN", pos, font.baseSize*3.0f, 4, MAROON);

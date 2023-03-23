@@ -1,6 +1,6 @@
 ﻿  raudio.c
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\raylib-master\src\external\jar_xm.h(242,1): warning C4005: 'DEBUG': macro redefinition
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\raylib-master\src\external\jar_xm.h(242,1): message : 'DEBUG' previously declared on the command line
+C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\raylib-master\src\external\jar_xm.h(242,1): warning C4005: "DEBUG": ponowna definicja makra
+C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\raylib-master\src\external\jar_xm.h(242,1): message : Element „DEBUG“ został wcześniej zadeklarowany w wierszu polecenia
   rcore.c
   rglfw.c
   rmodels.c
@@ -8,5 +8,5 @@ F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\raylib-master\src\
   rtext.c
   rtextures.c
   utils.c
-  Generating Code...
-  raylib.vcxproj -> F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\_bin\Debug\raylib.lib
+  Generowanie kodu...
+  raylib.vcxproj -> C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\_bin\Debug\raylib.lib

@@ -21,9 +21,9 @@ private:
 	float scale{ 4.f };
 	float height{};
 	float width{};
-	
+
 	const int maxFrames{ 6 };
-	const float updateTime{ 1.f/12.f };
+	const float updateTime{ 1.f / 12.f };
 public:
 	Character(int windowWidth, int windowHeight);
 
@@ -32,5 +32,5 @@ public:
 
 
 	void tick(float deltaTime);
-
+	Rectangle getCollisionRec();
 };
