@@ -19,3 +19,4 @@ public:
 	virtual Vector2 getScreenPos()override;
 }; 
 #endif
+/*TEST*/
