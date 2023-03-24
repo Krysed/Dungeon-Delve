@@ -12,6 +12,10 @@ Character::Character(int windowWidth, int windowHeight)
     };
 }
 
+Vector2 Character::getScreenPos() 
+{
+    return screenPosition; 
+}
 
 
 void Character::tick(float deltaTime)

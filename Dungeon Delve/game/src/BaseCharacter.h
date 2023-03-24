@@ -1,16 +1,17 @@
 #ifndef BASE_CHARACTER_H
 #define BASE_CHARACTER_H
+
 #include "raylib.h"
 class BaseCharacter
 {
 public:
 	BaseCharacter();
-	Vector2 getWorldPos(); //
-	void undoMovement(); //
-	Rectangle getCollisionRec(); //
+	Vector2 getWorldPos();
+	void undoMovement();
+	Rectangle getCollisionRec();
 	virtual void tick(float deltaTime);
 
-protected: //
+protected:
 	Texture2D texture{ LoadTexture("resources/characters/knight_idle_spritesheet.png") };
 	Texture2D idle{ LoadTexture("resources/characters/knight_idle_spritesheet.png") };
 	Texture2D run{ LoadTexture("resources/characters/knight_run_spritesheet.png") };

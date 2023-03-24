@@ -74,10 +74,12 @@ void UpdateGameplayScreen(void)
         Prop { Vector2{640.f, 740.f}, LoadTexture("resources/props/Log.png") }
     };
 
-    Enemy goblin{ Vector2{},
+    Enemy goblin{ Vector2{0,0},
         LoadTexture("resources/characters/goblin_idle_spritesheet.png"),
         LoadTexture("resources/characters/goblin_run_spritesheet.png") 
     };
+
+    goblin.setTarget(&player);
 
     while (!WindowShouldClose()) {
         if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
