@@ -23,6 +23,7 @@
 *
 **********************************************************************************************/
 
+#include <string>
 #include "raylib.h"
 #include "screens.h"
 #include "raymath.h"
@@ -74,12 +75,24 @@ void UpdateGameplayScreen(void)
         Prop { Vector2{640.f, 740.f}, LoadTexture("resources/props/Log.png") }
     };
 
-    Enemy goblin{ Vector2{0,0},
+    Enemy goblin{ Vector2{800.f,300.f},
         LoadTexture("resources/characters/goblin_idle_spritesheet.png"),
         LoadTexture("resources/characters/goblin_run_spritesheet.png") 
     };
+    Enemy slime{ Vector2{800.f,400.f},
+    LoadTexture("resources/characters/slime_idle_spritesheet.png"),
+    LoadTexture("resources/characters/slime_run_spritesheet.png")
+    };
 
-    goblin.setTarget(&player);
+    Enemy* enemies[2]{
+        &goblin,
+        &slime
+    };
+
+    for (auto enemy : enemies)
+    {
+        enemy->setTarget(&player);
+    }
 
     while (!WindowShouldClose()) {
         if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -100,6 +113,19 @@ void UpdateGameplayScreen(void)
             prop.Render(player.getWorldPos());
         }
 
+        if (!player.getAlive()) 
+        {
+            DrawText("Game Over", 55.f, 45.f, 40, RED);
+            EndDrawing();
+            continue;
+        }
+        else
+        {
+            std::string playerHealth = "Health: ";
+            playerHealth.append(std::to_string(player.getHealth()), 0, 5);
+            DrawText(playerHealth.c_str(), 55.f, 45.f, 40, RED);
+
+        }
         //checking map bounds
         if (
             player.getWorldPos().x < 0.f ||
@@ -118,7 +144,22 @@ void UpdateGameplayScreen(void)
             }
         }
 
-        goblin.tick(GetFrameTime());
+        for (auto enemy : enemies)
+        {
+            enemy->tick(GetFrameTime());
+        }
+
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+        {
+            for (auto enemy : enemies)
+            {
+                if (CheckCollisionRecs(goblin.getCollisionRec(), player.getWeaponCollisionRec()))
+                {
+                    enemy->setAlive(false);
+                }
+            }
+        }
+
         UnloadGameplayScreen();
     }
 }
