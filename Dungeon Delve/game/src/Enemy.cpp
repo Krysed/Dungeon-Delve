@@ -18,14 +18,10 @@ void Enemy::setTarget(Character* character)
 }
 void Enemy::tick(float deltaTime) 
 {
-    Vector2 toTarget = Vector2Subtract(target->getScreenPos(),screenPosition);
-    //normalize toTarget
-    toTarget = Vector2Normalize(toTarget);
-    //multiply toTarget
-    toTarget = Vector2Scale(toTarget, speed);
-    //move the enemy
-    worldPosition = Vector2Add(worldPosition, toTarget);
-
-    screenPosition = Vector2Subtract(worldPosition,target->getWorldPos());
+    velocity = Vector2Subtract(target->getScreenPos(),getScreenPos());
     BaseCharacter::tick(deltaTime);
+}
+Vector2 Enemy::getScreenPos()
+{
+    return Vector2Subtract(worldPosition, target->getWorldPos());
 }

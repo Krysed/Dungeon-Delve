@@ -6,10 +6,11 @@
 class Character : public BaseCharacter
 {
 private:
-
+	int windowWidth{};
+	int windowHeight{};
 public:
 	Character(int windowWidth, int windowHeight);
 
 	virtual void tick(float deltaTime) override;
-	Vector2 getScreenPos();
+	virtual Vector2 getScreenPos() override;
 };
