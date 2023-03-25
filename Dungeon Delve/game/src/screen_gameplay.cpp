@@ -142,6 +142,13 @@ void UpdateGameplayScreen(void)
             {
                 player.undoMovement();
             }
+            for (auto enemy : enemies)
+            {
+                if (CheckCollisionRecs(prop.getCollisionRec(enemy->getScreenPos()), enemy->getCollisionRec()))
+                {
+                    enemy->undoMovement();
+                }
+            }
         }
 
         for (auto enemy : enemies)

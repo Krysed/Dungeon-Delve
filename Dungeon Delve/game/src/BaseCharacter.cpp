@@ -24,7 +24,7 @@ Rectangle BaseCharacter::getCollisionRec()
     {
         getScreenPos().x,
         getScreenPos().y,
-        width * scale,
+        (width/6) * scale,
         height * scale
     };
 }
