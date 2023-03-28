@@ -183,6 +183,7 @@
     <ClInclude Include="..\game\src\BaseCharacter.h" />
     <ClInclude Include="..\game\src\Character.h" />
     <ClInclude Include="..\game\src\Enemy.h" />
+    <ClInclude Include="..\game\src\mapLayouts.h" />
     <ClInclude Include="..\game\src\Prop.h" />
     <ClInclude Include="..\game\src\screens.h" />
   </ItemGroup>

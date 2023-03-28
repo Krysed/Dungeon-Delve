@@ -13,11 +13,13 @@ private:
 	Character* target;
 	float damagePerSec{ 10.f };
 	float radius{ 25.f };
+
 public:
+
 	Enemy(Vector2 pos, Texture2D idle_texture, Texture2D run_texture);
 	void setTarget(Character* character);
-	virtual void tick(float deltaTime) override;
+	virtual void tick(float deltaTime)override;
+	void tick(float deltaTime, Character* character);
 	virtual Vector2 getScreenPos()override;
 }; 
 #endif
-/*TEST*/

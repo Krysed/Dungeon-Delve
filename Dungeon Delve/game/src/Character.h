@@ -9,10 +9,12 @@ private:
 	int windowWidth{};
 	int windowHeight{};
 	float health{ 100.f };
+	
 	Texture2D weapon{LoadTexture("resources/characters/weapon_sword.png")};
 	Rectangle weaponCollisionRec{};
 
 public:
+	static int experience;
 	Character(int windowWidth, int windowHeight);
 
 	virtual void tick(float deltaTime) override;
@@ -20,4 +22,5 @@ public:
 	Rectangle getWeaponCollisionRec() { return weaponCollisionRec; }
 	float getHealth() const { return health; }
 	void takeDamage(float damage);
+	void setWeaponTexture(Texture2D newWeapon) { weapon = newWeapon; }
 };

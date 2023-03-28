@@ -22,8 +22,9 @@
 *     3. This notice may not be removed or altered from any source distribution.
 *
 **********************************************************************************************/
-
+#include <iostream>
 #include <string>
+#include "mapLayouts.h"
 #include "raylib.h"
 #include "screens.h"
 #include "raymath.h"
@@ -35,7 +36,7 @@
 //----------------------------------------------------------------------------------
 static int framesCounter = 0;
 static int finishScreen = 0;
-
+int Character::experience = 0;
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
 //----------------------------------------------------------------------------------
@@ -43,8 +44,6 @@ static int finishScreen = 0;
 // Gameplay Screen Initialization logic
 void InitGameplayScreen(void)
 {
-    // TODO: Initialize GAMEPLAY screen variables here!
-
     framesCounter = 0;
     finishScreen = 0;
 }
@@ -52,38 +51,37 @@ void InitGameplayScreen(void)
 // Gameplay Screen Update logic
 void UpdateGameplayScreen(void)
 {
-    // TODO: Update GAMEPLAY screen variables here!
-
-    // Press enter or tap to change to ENDING screen
-
-    //ADD GLOBAL VARIABLES
-    //temp
     const int windowWidth{ 800 };
     const int windowHeight{ 600 };
-
     const float mapScale{ 4.0f };
 
     Texture2D map = LoadTexture("resources/maps/test_map1.png");
     Vector2 mapPosition{ 0.0f,0.0f };
     Character player{ windowWidth,windowHeight }; // -- Powo³anie do ¿ycia obiektu "player" -- 
 
-    // Prop rock{ Vector2{340.f, 340.f}, LoadTexture("resources/props/Rock.png") }; // -- Powo³anie do ¿ycia jednostkowego obiektu "rock" --
-
-    Prop props[2] // -- Powo³anie do ¿ycia tablicy obiektów --
+    //populating level with props
+    Prop props[200]{};
+    for (int i = 0; i < 7; i++)
     {
-        Prop { Vector2{340.f, 340.f}, LoadTexture("resources/props/Rock.png") },
-        Prop { Vector2{640.f, 740.f}, LoadTexture("resources/props/Log.png") }
-    };
+        for (int j = 0; j < 20; j++)
+        {
+            if (mapLayout[i][j] == ' ')continue;
+            else if (mapLayout[i][j] == 'x')props[j] = Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture("resources/props/Rock.png")};
+            else if (mapLayout[i][j] == 'o')props[j] = Prop{ Vector2{float(j) * 110,float(i) * 85}, LoadTexture("resources/props/Log.png") };
+            else if (mapLayout[i][j] == 's')props[j] = Prop{ Vector2{float(j) * 110,float(i) * 85}, LoadTexture("resources/props/sign.png") };
+            else if (mapLayout[i][j] == 'b')props[j] = Prop{ Vector2{float(j) * 110,float(i) * 85}, LoadTexture("resources/props/Bush.png") };
+        }
+    }
+
 
     Enemy goblin{ Vector2{800.f,300.f},
         LoadTexture("resources/characters/goblin_idle_spritesheet.png"),
         LoadTexture("resources/characters/goblin_run_spritesheet.png") 
     };
     Enemy slime{ Vector2{800.f,400.f},
-    LoadTexture("resources/characters/slime_idle_spritesheet.png"),
-    LoadTexture("resources/characters/slime_run_spritesheet.png")
+        LoadTexture("resources/characters/slime_idle_spritesheet.png"),
+        LoadTexture("resources/characters/slime_run_spritesheet.png")
     };
-
     Enemy* enemies[2]{
         &goblin,
         &slime
@@ -95,18 +93,16 @@ void UpdateGameplayScreen(void)
     }
 
     while (!WindowShouldClose()) {
-        if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+        if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP) || IsKeyPressed(KEY_ESCAPE))
         {
             finishScreen = 1;
-            PlaySound(fxCoin);
+            //PlaySound(fxCoin);
         }
 
         mapPosition = Vector2Scale(player.getWorldPos(), -1.f);
         //Drawing map
         DrawTextureEx(map, mapPosition, 0.0f, mapScale, WHITE);
         player.tick(GetFrameTime());
-
-        // rock.Render(player.getWorldPos()); // -- Pozycjonowanie wzglêdem jednostkowego obiektu "player" --
 
         for (auto prop : props)
         {
@@ -115,18 +111,22 @@ void UpdateGameplayScreen(void)
 
         if (!player.getAlive()) 
         {
-            DrawText("Game Over", 55.f, 45.f, 40, RED);
+            DrawText("Game Over", 300.f, 80.f, 40, RED);
             EndDrawing();
             continue;
         }
         else
         {
+            //write Player character stats to screen
             std::string playerHealth = "Health: ";
+            std::string playerExperience = "Experience: ";
             playerHealth.append(std::to_string(player.getHealth()), 0, 5);
+            playerExperience.append(std::to_string(Character::experience), 0, 5);
             DrawText(playerHealth.c_str(), 55.f, 45.f, 40, RED);
+            DrawText(playerExperience.c_str(), 450.f, 45.f, 40, YELLOW);
 
         }
-        //checking map bounds
+        //checking player-map bounds
         if (
             player.getWorldPos().x < 0.f ||
             player.getWorldPos().y < 0.f ||
@@ -135,38 +135,65 @@ void UpdateGameplayScreen(void)
             ) {
             player.undoMovement();
         }
-
+        //checking player-prop collision
         for (auto prop : props)
         {
+            //debug lines
+            DrawRectangleLines(
+                prop.getCollisionRec(player.getWorldPos()).x,
+                prop.getCollisionRec(player.getWorldPos()).y,
+                prop.getCollisionRec(player.getWorldPos()).width,
+                prop.getCollisionRec(player.getWorldPos()).height,
+                RED
+            );
             if (CheckCollisionRecs(prop.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
             {
                 player.undoMovement();
             }
-            for (auto enemy : enemies)
-            {
-                if (CheckCollisionRecs(prop.getCollisionRec(enemy->getScreenPos()), enemy->getCollisionRec()))
-                {
+        }
+        
+        //checking enemy-prop collision
+        for (auto enemy : enemies)
+        {
+            enemy->tick(GetFrameTime(),&player);
+            //debug lines
+            DrawRectangleLines(
+                enemy->getCollisionRec().x,
+                enemy->getCollisionRec().y,
+                enemy->getCollisionRec().width,
+                enemy->getCollisionRec().height,
+                RED
+            );
+
+            for (auto prop: props) {
+                //debug info
+                //std::cout << "prop: " << prop.getCollisionRec(enemy->getScreenPos()).x << " " << prop.getCollisionRec(enemy->getScreenPos()).y << "\n";
+                //std::cout << "enemy: " << enemy->getCollisionRec().x << " " << enemy->getCollisionRec().y << "\n";
+
+                if (CheckCollisionRecs(enemy->getCollisionRec(), prop.getCollisionRec(player.getScreenPos())))
+                { 
                     enemy->undoMovement();
                 }
             }
-        }
-
-        for (auto enemy : enemies)
-        {
-            enemy->tick(GetFrameTime());
         }
 
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
             for (auto enemy : enemies)
             {
-                if (CheckCollisionRecs(goblin.getCollisionRec(), player.getWeaponCollisionRec()))
+                if (CheckCollisionRecs(enemy->getCollisionRec(), player.getWeaponCollisionRec()))
                 {
+                    if(enemy->getAlive()==true)Character::experience++;
                     enemy->setAlive(false);
                 }
             }
         }
-
+        if(IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            player.setSpeed(player.getSprintSpeed());
+        }
+        else
+            player.setSpeed(player.getBaseSpeed());
         UnloadGameplayScreen();
     }
 }
@@ -175,19 +202,11 @@ void UpdateGameplayScreen(void)
 void DrawGameplayScreen(void)
 {
     // TODO: Draw GAMEPLAY screen here!
-
-    /*
-    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), PURPLE);
-    DrawTextEx(font, "GAMEPLAY SCREEN", pos, font.baseSize*3.0f, 4, MAROON);
-    DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
-    */
-
 }
 
 // Gameplay Screen Unload logic
 void UnloadGameplayScreen(void)
 {
-    // TODO: Unload GAMEPLAY screen variables here!
     EndDrawing();
 }
 
