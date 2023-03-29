@@ -24,6 +24,7 @@
 **********************************************************************************************/
 #include <iostream>
 #include <string>
+#include <vector>
 #include "mapLayouts.h"
 #include "raylib.h"
 #include "screens.h"
@@ -55,21 +56,27 @@ void UpdateGameplayScreen(void)
     const int windowHeight{ 600 };
     const float mapScale{ 4.0f };
 
-    Texture2D map = LoadTexture("resources/maps/test_map1.png");
+    //fix sound
+    Music game = LoadMusicStream("resources/game1.wav");
+    SetMusicVolume(music, 0.1f);
+    PlayMusicStream(game);
+
+    Texture2D map = LoadTexture("resources/maps/MapSummer.png");
     Vector2 mapPosition{ 0.0f,0.0f };
     Character player{ windowWidth,windowHeight }; // -- Powo³anie do ¿ycia obiektu "player" -- 
 
     //populating level with props
-    Prop props[200]{};
-    for (int i = 0; i < 7; i++)
+    std::vector<Prop> props{};
+    std::cout << mapLayout->length() << "\n\n";
+    for (int i = 0; i < numOfProps; i++)
     {
-        for (int j = 0; j < 20; j++)
+        for (int j = 0; j < numOfProps; j++)
         {
             if (mapLayout[i][j] == ' ')continue;
-            else if (mapLayout[i][j] == 'x')props[j] = Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture("resources/props/Rock.png")};
-            else if (mapLayout[i][j] == 'o')props[j] = Prop{ Vector2{float(j) * 110,float(i) * 85}, LoadTexture("resources/props/Log.png") };
-            else if (mapLayout[i][j] == 's')props[j] = Prop{ Vector2{float(j) * 110,float(i) * 85}, LoadTexture("resources/props/sign.png") };
-            else if (mapLayout[i][j] == 'b')props[j] = Prop{ Vector2{float(j) * 110,float(i) * 85}, LoadTexture("resources/props/Bush.png") };
+            else if (mapLayout[i][j] == 'x')props.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture("resources/props/Rock.png") });
+            else if (mapLayout[i][j] == 'o')props.push_back(Prop{ Vector2{ float(j) * 85,float(i) * 85 }, LoadTexture("resources/props/Log.png") });
+            else if (mapLayout[i][j] == 's')props.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture("resources/props/sign.png") });
+            else if (mapLayout[i][j] == 'b')props.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture("resources/props/Bush.png") });
         }
     }
 
@@ -81,10 +88,15 @@ void UpdateGameplayScreen(void)
     Enemy slime{ Vector2{800.f,400.f},
         LoadTexture("resources/characters/slime_idle_spritesheet.png"),
         LoadTexture("resources/characters/slime_run_spritesheet.png")
+    };    
+    Enemy skeleton{ Vector2{700.f,800.f},
+        LoadTexture("resources/characters/skeleton_idle_spritesheet.png"),
+        LoadTexture("resources/characters/skeleton_run_spritesheet.png")
     };
-    Enemy* enemies[2]{
+    Enemy* enemies[3]{
         &goblin,
-        &slime
+        &slime,
+        &skeleton
     };
 
     for (auto enemy : enemies)
@@ -112,6 +124,7 @@ void UpdateGameplayScreen(void)
         if (!player.getAlive()) 
         {
             DrawText("Game Over", 300.f, 80.f, 40, RED);
+            Character::experience = 0;
             EndDrawing();
             continue;
         }
@@ -165,16 +178,17 @@ void UpdateGameplayScreen(void)
                 RED
             );
 
-            for (auto prop: props) {
-                //debug info
-                //std::cout << "prop: " << prop.getCollisionRec(enemy->getScreenPos()).x << " " << prop.getCollisionRec(enemy->getScreenPos()).y << "\n";
-                //std::cout << "enemy: " << enemy->getCollisionRec().x << " " << enemy->getCollisionRec().y << "\n";
+            //to fix
+            //for (auto prop: props) {
+            //    //debug info
+            //    //std::cout << "prop: " << prop.getCollisionRec(enemy->getScreenPos()).x << " " << prop.getCollisionRec(enemy->getScreenPos()).y << "\n";
+            //    //std::cout << "enemy: " << enemy->getCollisionRec().x << " " << enemy->getCollisionRec().y << "\n";
 
-                if (CheckCollisionRecs(enemy->getCollisionRec(), prop.getCollisionRec(player.getScreenPos())))
-                { 
-                    enemy->undoMovement();
-                }
-            }
+            //    if (CheckCollisionRecs(enemy->getCollisionRec(), prop.getCollisionRec(player.getScreenPos())))
+            //    { 
+            //        enemy->undoMovement();
+            //    }
+            //}
         }
 
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -183,7 +197,8 @@ void UpdateGameplayScreen(void)
             {
                 if (CheckCollisionRecs(enemy->getCollisionRec(), player.getWeaponCollisionRec()))
                 {
-                    if(enemy->getAlive()==true)Character::experience++;
+                    if(enemy->getAlive()==true)
+                        Character::experience++;
                     enemy->setAlive(false);
                 }
             }
