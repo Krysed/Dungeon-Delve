@@ -81,22 +81,58 @@ void UpdateGameplayScreen(void)
     }
 
 
-    Enemy goblin{ Vector2{800.f,300.f},
+    Enemy goblin
+    {
+        Vector2{800.f,300.f},
         LoadTexture("resources/characters/goblin_idle_spritesheet.png"),
-        LoadTexture("resources/characters/goblin_run_spritesheet.png") 
+        LoadTexture("resources/characters/goblin_run_spritesheet.png")
+    };
+    Enemy goblin2
+    {
+        Vector2{1200.f,300.f},
+        LoadTexture("resources/characters/goblin_idle_spritesheet.png"),
+        LoadTexture("resources/characters/goblin_run_spritesheet.png")
+    };
+    Enemy goblin3
+    {
+        Vector2{1000.f,700.f},
+        LoadTexture("resources/characters/goblin_idle_spritesheet.png"),
+        LoadTexture("resources/characters/goblin_run_spritesheet.png")
     };
     Enemy slime{ Vector2{800.f,400.f},
         LoadTexture("resources/characters/slime_idle_spritesheet.png"),
         LoadTexture("resources/characters/slime_run_spritesheet.png")
-    };    
+    };
+    Enemy slime2{ Vector2{800.f,1600.f},
+        LoadTexture("resources/characters/slime_idle_spritesheet.png"),
+        LoadTexture("resources/characters/slime_run_spritesheet.png")
+    };
+    Enemy slime3{ Vector2{1300.f,1600.f},
+        LoadTexture("resources/characters/slime_idle_spritesheet.png"),
+        LoadTexture("resources/characters/slime_run_spritesheet.png")
+    };
     Enemy skeleton{ Vector2{700.f,800.f},
         LoadTexture("resources/characters/skeleton_idle_spritesheet.png"),
         LoadTexture("resources/characters/skeleton_run_spritesheet.png")
     };
-    Enemy* enemies[3]{
+    Enemy skeleton2{ Vector2{700.f,1200.f},
+        LoadTexture("resources/characters/skeleton_idle_spritesheet.png"),
+        LoadTexture("resources/characters/skeleton_run_spritesheet.png")
+    };
+    Enemy skeleton3{ Vector2{700.f,1500.f},
+        LoadTexture("resources/characters/skeleton_idle_spritesheet.png"),
+        LoadTexture("resources/characters/skeleton_run_spritesheet.png")
+    };
+    Enemy* enemies[9]{
         &goblin,
+        &goblin2,
+        &goblin3,
         &slime,
-        &skeleton
+        &slime2,
+        &slime3,
+        &skeleton,
+        &skeleton2,
+        &skeleton3
     };
 
     for (auto enemy : enemies)
