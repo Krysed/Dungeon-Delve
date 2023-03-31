@@ -247,6 +247,8 @@ void UpdateGameplayScreen(void)
             player.setSpeed(player.getBaseSpeed());
         UnloadGameplayScreen();
     }
+    UnloadSound(game);
+
 }
 
 // Gameplay Screen Draw logic

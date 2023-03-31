@@ -54,15 +54,15 @@ void Character::tick(float deltaTime)
         rotation = IsMouseButtonDown(MOUSE_LEFT_BUTTON) ? -35.f : 0.f;
     }
 
-    //draw sword
-    Rectangle source{ 0.f,0.f,static_cast<float>(weapon.width) * rightLeft, static_cast<float>(weapon.height) };
-    Rectangle dest{ getScreenPos().x + offset.x ,getScreenPos().y + offset.y, weapon.width * scale,weapon.height * scale };
-    DrawTexturePro(weapon, source, dest, origin, rotation, WHITE);
-    
+
     //drawing character
     Rectangle source2{ frame * width / 6.f,0.f,rightLeft * width / 6.f,height };
     Rectangle destination{ getScreenPos().x,getScreenPos().y,4.0f * width / 6.f,4.0f * height };
     DrawTexturePro(texture, source2, destination, Vector2{}, 0.f, WHITE);
+    //draw sword
+    Rectangle source{ 0.f,0.f,static_cast<float>(weapon.width) * rightLeft, static_cast<float>(weapon.height) };
+    Rectangle dest{ getScreenPos().x + offset.x ,getScreenPos().y + offset.y, weapon.width * scale,weapon.height * scale };
+    DrawTexturePro(weapon, source, dest, origin, rotation, WHITE);
 
     //weapon Collision
     //DrawRectangleLines(
