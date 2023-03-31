@@ -57,9 +57,9 @@ void UpdateGameplayScreen(void)
     const float mapScale{ 4.0f };
 
     //fix sound
-    Music game = LoadMusicStream("resources/game1.wav");
+    Sound game = LoadSound("resources/game1.wav");
     SetMusicVolume(music, 0.1f);
-    PlayMusicStream(game);
+    PlaySound(game);
 
     Texture2D map = LoadTexture("resources/maps/MapSummer.png");
     Vector2 mapPosition{ 0.0f,0.0f };
