@@ -25,6 +25,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "src/HealthIncrease.h"
 #include "src/Character.h"
 #include "src/GoldCoin.h"
 #include "src/Globals.h"
@@ -83,6 +84,7 @@ void UpdateGameplayScreen(void)
     Potion pot(Vector2{500.f,500.f}, LoadTexture(potionTexture));
     GoldCoin gold(Vector2{ 550.f,500.f }, LoadTexture(coinTexture));
     Key key(Vector2{ 600.f,500.f }, LoadTexture(keyTexture));
+    HealthIncrease health(Vector2{ 500.f,550.f }, LoadTexture(healthTexture));
     //Key
     Enemy goblin
     {
@@ -165,6 +167,7 @@ void UpdateGameplayScreen(void)
             if(!pot.getConsumed())pot.Render(player.getWorldPos());
             if (!gold.getConsumed())gold.Render(player.getWorldPos());
             if (!key.getConsumed())key.Render(player.getWorldPos());
+            if (!health.getConsumed())health.Render(player.getWorldPos());
 
         }
 
@@ -228,6 +231,10 @@ void UpdateGameplayScreen(void)
             if (CheckCollisionRecs(key.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
             {
                 key.interact(&player);
+            }
+            if (CheckCollisionRecs(health.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
+            {
+                health.interact(&player);
             }
         }
         

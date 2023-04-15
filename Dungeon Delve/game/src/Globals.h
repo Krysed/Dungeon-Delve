@@ -15,7 +15,7 @@ const char* bushTexture = "resources/props/Bock.png";
 const char* logTexture = "resources/props/Log.png";
 
 //item textures
-//const char* potionTexture = "resources/characters/health.gif";
+const char* healthTexture = "resources/props/heart.png";
 const char* potionTexture = "resources/props/potion_red.png";
 const char* coinTexture = "resources/props/bag_coins.png";
 const char* keyTexture= "resources/props/key_silver.png";

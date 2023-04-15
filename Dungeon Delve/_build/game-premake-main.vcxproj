@@ -185,6 +185,7 @@
     <ClInclude Include="..\game\src\Enemy.h" />
     <ClInclude Include="..\game\src\Globals.h" />
     <ClInclude Include="..\game\src\GoldCoin.h" />
+    <ClInclude Include="..\game\src\HealthIncrease.h" />
     <ClInclude Include="..\game\src\Item.h" />
     <ClInclude Include="..\game\src\Key.h" />
     <ClInclude Include="..\game\src\mapLayouts.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="..\game\src\Character.cpp" />
     <ClCompile Include="..\game\src\Enemy.cpp" />
     <ClCompile Include="..\game\src\GoldCoin.cpp" />
+    <ClCompile Include="..\game\src\HealthIncrease.cpp" />
     <ClCompile Include="..\game\src\Item.cpp" />
     <ClCompile Include="..\game\src\Key.cpp" />
     <ClCompile Include="..\game\src\main.cpp" />
