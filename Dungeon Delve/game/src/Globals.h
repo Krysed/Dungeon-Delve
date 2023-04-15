@@ -26,6 +26,7 @@ const char* potionTexture = "resources/props/potion_red.png";
 const char* coinTexture = "resources/props/bag_coins.png";
 const char* keyTexture= "resources/props/key_silver.png";
 const char* stairTexture= "resources/props/stair_nextlevel.png";
+const char* stairLockedTexture= "resources/props/door_anim_opening_f0.png";
 
 //maps
 const char* baseMap = "resources/maps/MapSummer.png";

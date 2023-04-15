@@ -11,6 +11,7 @@ public:
 	void Render(Vector2 knightPos);
 	Rectangle getCollisionRec(Vector2 knightPos); // -- Prostok¹t kolizji --
 	Vector2 getWorldPos() { return worldPos; }
+	void setTexture(Texture2D tex);
 
 private:
 	Texture2D texture{};

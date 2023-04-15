@@ -7,5 +7,5 @@ Stairs::~Stairs() {}
 
 void Stairs::interact(Character* player)
 {
-	
+
 }

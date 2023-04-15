@@ -5,7 +5,7 @@
 Prop::Prop(Vector2 pos, Texture2D tex) : // -- Konstruktor z inicjalizacj¹ --
 	worldPos(pos), texture(tex)
 {}
-
+Prop::~Prop() {}
 void Prop::Render(Vector2 knightPos)
 {
 	Vector2 screenPos{ Vector2Subtract(worldPos, knightPos) };
@@ -24,4 +24,7 @@ Rectangle Prop::getCollisionRec(Vector2 knightPos) // -- Prostok¹t kolizji --
 	};
 }
 
-Prop::~Prop() {}
+void Prop::setTexture(Texture2D tex)
+{
+	texture = tex;
+}

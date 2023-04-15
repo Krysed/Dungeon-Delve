@@ -86,7 +86,7 @@ void UpdateGameplayScreen(void)
     GoldCoin gold(Vector2{ 550.f,500.f }, LoadTexture(coinTexture));
     Key key(Vector2{ 600.f,500.f }, LoadTexture(keyTexture));
     HealthIncrease health(Vector2{ 500.f,550.f }, LoadTexture(healthTexture));
-    Stairs stairs(Vector2{ 800.f,500.f }, LoadTexture(stairTexture));
+    Stairs stairs(Vector2{ 800.f,500.f }, LoadTexture(stairLockedTexture));
     //Key
     Enemy goblin
     {
@@ -141,7 +141,7 @@ void UpdateGameplayScreen(void)
         &skeleton2,
         &skeleton3
     };
-
+    std::cout << "map.id " << map.id << " | map.mipmaps " << map.mipmaps << "\n";
     for (auto enemy : enemies)
     {
         enemy->setTarget(&player);
@@ -155,22 +155,32 @@ void UpdateGameplayScreen(void)
         }
 
         if (IsKeyPressed(KEY_E) && CheckCollisionRecs(stairs.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
-        {
-            map = LoadTexture(dungeonMap);
+        {            
+            if(stairs.getConsumed())map = LoadTexture(dungeonMap);
+
+            if (Character::key > 0) {
+                Character::key--;
+                stairs.setTexture(LoadTexture(stairTexture));
+                stairs.setConsumed(true);
+            }
         }
         mapPosition = Vector2Scale(player.getWorldPos(), -1.f);
         //Drawing map
         DrawTextureEx(map, mapPosition, 0.0f, mapScale, WHITE);
+        
+        stairs.Render(player.getWorldPos());
+        
         player.tick(GetFrameTime());
+        
+        if(!pot.getConsumed())pot.Render(player.getWorldPos());
+        if (!gold.getConsumed())gold.Render(player.getWorldPos());
+        if (!key.getConsumed())key.Render(player.getWorldPos());
+        if (!health.getConsumed())health.Render(player.getWorldPos());
 
         for (auto prop : props)
         {
             prop.Render(player.getWorldPos());
-            if(!pot.getConsumed())pot.Render(player.getWorldPos());
-            if (!gold.getConsumed())gold.Render(player.getWorldPos());
-            if (!key.getConsumed())key.Render(player.getWorldPos());
-            if (!health.getConsumed())health.Render(player.getWorldPos());
-            stairs.Render(player.getWorldPos());
+            //stairs.Render(player.getWorldPos());
 
         }
 
