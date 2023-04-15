@@ -31,6 +31,7 @@
 #include "src/Globals.h"
 #include "mapLayouts.h"
 #include "src/Potion.h"
+#include "src/Stairs.h"
 #include "src/Enemy.h"
 #include "src/Prop.h"
 #include "raymath.h"
@@ -85,6 +86,7 @@ void UpdateGameplayScreen(void)
     GoldCoin gold(Vector2{ 550.f,500.f }, LoadTexture(coinTexture));
     Key key(Vector2{ 600.f,500.f }, LoadTexture(keyTexture));
     HealthIncrease health(Vector2{ 500.f,550.f }, LoadTexture(healthTexture));
+    Stairs stairs(Vector2{ 800.f,500.f }, LoadTexture(stairTexture));
     //Key
     Enemy goblin
     {
@@ -152,7 +154,7 @@ void UpdateGameplayScreen(void)
             //PlaySound(fxCoin);
         }
 
-        if (IsKeyPressed(KEY_E))
+        if (IsKeyPressed(KEY_E) && CheckCollisionRecs(stairs.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
         {
             map = LoadTexture(dungeonMap);
         }
@@ -168,6 +170,7 @@ void UpdateGameplayScreen(void)
             if (!gold.getConsumed())gold.Render(player.getWorldPos());
             if (!key.getConsumed())key.Render(player.getWorldPos());
             if (!health.getConsumed())health.Render(player.getWorldPos());
+            stairs.Render(player.getWorldPos());
 
         }
 

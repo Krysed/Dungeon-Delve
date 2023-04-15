@@ -1,6 +1,6 @@
-#include "HealthIncrease.h"
-
 #pragma once
+
+#include "HealthIncrease.h"
 
 HealthIncrease::HealthIncrease(Vector2 pos, Texture2D texture) : Item(pos, texture) {}
 

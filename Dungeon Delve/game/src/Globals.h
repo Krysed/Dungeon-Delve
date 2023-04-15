@@ -13,12 +13,19 @@ const char* rockTexture = "resources/props/Rock.png";
 const char* signTexture = "resources/props/sign.png";
 const char* bushTexture = "resources/props/Bock.png";
 const char* logTexture = "resources/props/Log.png";
+const char* wall1Texture = "resources/props/wall_1.png";
+const char* wall2Texture = "resources/props/wall_2.png";
+const char* wall3Texture = "resources/props/wall_3.png";
+const char* wallCrackedTexture = "resources/props/wall_crack.png";
+const char* wallSideLeftTexture = "resources/props/wall_side_left.png";
+const char* wallSideRightTexture = "resources/props/wall_side_right.png";
 
 //item textures
 const char* healthTexture = "resources/props/heart.png";
 const char* potionTexture = "resources/props/potion_red.png";
 const char* coinTexture = "resources/props/bag_coins.png";
 const char* keyTexture= "resources/props/key_silver.png";
+const char* stairTexture= "resources/props/stair_nextlevel.png";
 
 //maps
 const char* baseMap = "resources/maps/MapSummer.png";
