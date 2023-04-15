@@ -24,4 +24,4 @@ Rectangle Prop::getCollisionRec(Vector2 knightPos) // -- Prostok¹t kolizji --
 	};
 }
 
-Prop::~Prop() {} // -- Destruktor --
+Prop::~Prop() {}

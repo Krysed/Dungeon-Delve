@@ -18,7 +18,7 @@ void Enemy::setTarget(Character* character)
     target = character;
 }
 
-//test
+
 void Enemy::tick(float deltaTime, Character* character)
 {
     if (!getAlive())return;

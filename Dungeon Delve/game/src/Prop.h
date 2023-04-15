@@ -1,7 +1,7 @@
 #pragma once
 #include "raylib.h"
 #include "Enemy.h"
-//--------------------------------------------------------------------------
+
 class Prop
 {
 public:

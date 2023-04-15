@@ -25,24 +25,23 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "mapLayouts.h"
-#include "raylib.h"
-#include "screens.h"
-#include "raymath.h"
 #include "src/Character.h"
-#include "src/Prop.h"
+#include "src/GoldCoin.h"
+#include "src/Globals.h"
+#include "mapLayouts.h"
+#include "src/Potion.h"
 #include "src/Enemy.h"
-//----------------------------------------------------------------------------------
-// Module Variables Definition (local)
-//----------------------------------------------------------------------------------
+#include "src/Prop.h"
+#include "raymath.h"
+#include "screens.h"
+#include "src/Key.h"
+#include "raylib.h"
+
 static int framesCounter = 0;
 static int finishScreen = 0;
 int Character::experience = 0;
-//----------------------------------------------------------------------------------
-// Gameplay Screen Functions Definition
-//----------------------------------------------------------------------------------
-
-// Gameplay Screen Initialization logic
+int Character::goldAmount = 0;
+int Character::key = 0;
 void InitGameplayScreen(void)
 {
     framesCounter = 0;
@@ -57,13 +56,13 @@ void UpdateGameplayScreen(void)
     const float mapScale{ 4.0f };
 
     //fix sound
-    Sound game = LoadSound("resources/game1.wav");
+    Sound game = LoadSound(gameplayMusic);
     SetMusicVolume(music, 0.1f);
     PlaySound(game);
 
-    Texture2D map = LoadTexture("resources/maps/MapSummer.png");
+    Texture2D map = LoadTexture(baseMap);
     Vector2 mapPosition{ 0.0f,0.0f };
-    Character player{ windowWidth,windowHeight }; // -- Powo³anie do ¿ycia obiektu "player" -- 
+    Character player{ windowWidth,windowHeight };
 
     //populating level with props
     std::vector<Prop> props{};
@@ -73,55 +72,59 @@ void UpdateGameplayScreen(void)
         for (int j = 0; j < numOfProps; j++)
         {
             if (mapLayout[i][j] == ' ')continue;
-            else if (mapLayout[i][j] == 'x')props.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture("resources/props/Rock.png") });
-            else if (mapLayout[i][j] == 'o')props.push_back(Prop{ Vector2{ float(j) * 85,float(i) * 85 }, LoadTexture("resources/props/Log.png") });
-            else if (mapLayout[i][j] == 's')props.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture("resources/props/sign.png") });
-            else if (mapLayout[i][j] == 'b')props.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture("resources/props/Bush.png") });
+            else if (mapLayout[i][j] == 'x')props.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture(rockTexture) });
+            else if (mapLayout[i][j] == 'o')props.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85 }, LoadTexture(logTexture) });
+            else if (mapLayout[i][j] == 's')props.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture(signTexture) });
+            else if (mapLayout[i][j] == 'b')props.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture(bushTexture) });
         }
     }
 
-
+    //potion test
+    Potion pot(Vector2{500.f,500.f}, LoadTexture(potionTexture));
+    GoldCoin gold(Vector2{ 550.f,500.f }, LoadTexture(coinTexture));
+    Key key(Vector2{ 600.f,500.f }, LoadTexture(keyTexture));
+    //Key
     Enemy goblin
     {
         Vector2{800.f,300.f},
-        LoadTexture("resources/characters/goblin_idle_spritesheet.png"),
-        LoadTexture("resources/characters/goblin_run_spritesheet.png")
+        LoadTexture(goblinIdleTexture),
+        LoadTexture(goblinRunTexture)
     };
     Enemy goblin2
     {
         Vector2{1200.f,300.f},
-        LoadTexture("resources/characters/goblin_idle_spritesheet.png"),
-        LoadTexture("resources/characters/goblin_run_spritesheet.png")
+        LoadTexture(goblinIdleTexture),
+        LoadTexture(goblinRunTexture)
     };
     Enemy goblin3
     {
         Vector2{1000.f,700.f},
-        LoadTexture("resources/characters/goblin_idle_spritesheet.png"),
-        LoadTexture("resources/characters/goblin_run_spritesheet.png")
+        LoadTexture(goblinIdleTexture),
+        LoadTexture(goblinRunTexture)
     };
     Enemy slime{ Vector2{800.f,400.f},
-        LoadTexture("resources/characters/slime_idle_spritesheet.png"),
-        LoadTexture("resources/characters/slime_run_spritesheet.png")
+        LoadTexture(slimeIdleTexture),
+        LoadTexture(slimeRunTexture)
     };
     Enemy slime2{ Vector2{800.f,1600.f},
-        LoadTexture("resources/characters/slime_idle_spritesheet.png"),
-        LoadTexture("resources/characters/slime_run_spritesheet.png")
+        LoadTexture(slimeIdleTexture),
+        LoadTexture(slimeRunTexture)
     };
     Enemy slime3{ Vector2{1300.f,1600.f},
-        LoadTexture("resources/characters/slime_idle_spritesheet.png"),
-        LoadTexture("resources/characters/slime_run_spritesheet.png")
+        LoadTexture(slimeIdleTexture),
+        LoadTexture(slimeRunTexture)
     };
     Enemy skeleton{ Vector2{700.f,800.f},
-        LoadTexture("resources/characters/skeleton_idle_spritesheet.png"),
-        LoadTexture("resources/characters/skeleton_run_spritesheet.png")
+        LoadTexture(skeletonIdleTexture),
+        LoadTexture(skeletonRunTexture)
     };
     Enemy skeleton2{ Vector2{700.f,1200.f},
-        LoadTexture("resources/characters/skeleton_idle_spritesheet.png"),
-        LoadTexture("resources/characters/skeleton_run_spritesheet.png")
+        LoadTexture(skeletonIdleTexture),
+        LoadTexture(skeletonRunTexture)
     };
     Enemy skeleton3{ Vector2{700.f,1500.f},
-        LoadTexture("resources/characters/skeleton_idle_spritesheet.png"),
-        LoadTexture("resources/characters/skeleton_run_spritesheet.png")
+        LoadTexture(skeletonIdleTexture),
+        LoadTexture(skeletonRunTexture)
     };
     Enemy* enemies[9]{
         &goblin,
@@ -147,6 +150,10 @@ void UpdateGameplayScreen(void)
             //PlaySound(fxCoin);
         }
 
+        if (IsKeyPressed(KEY_E))
+        {
+            map = LoadTexture(dungeonMap);
+        }
         mapPosition = Vector2Scale(player.getWorldPos(), -1.f);
         //Drawing map
         DrawTextureEx(map, mapPosition, 0.0f, mapScale, WHITE);
@@ -155,6 +162,10 @@ void UpdateGameplayScreen(void)
         for (auto prop : props)
         {
             prop.Render(player.getWorldPos());
+            if(!pot.getConsumed())pot.Render(player.getWorldPos());
+            if (!gold.getConsumed())gold.Render(player.getWorldPos());
+            if (!key.getConsumed())key.Render(player.getWorldPos());
+
         }
 
         if (!player.getAlive()) 
@@ -169,10 +180,17 @@ void UpdateGameplayScreen(void)
             //write Player character stats to screen
             std::string playerHealth = "Health: ";
             std::string playerExperience = "Experience: ";
+            std::string playerGold = "Gold: ";
+            std::string playerKey = "Key: ";
+
             playerHealth.append(std::to_string(player.getHealth()), 0, 5);
             playerExperience.append(std::to_string(Character::experience), 0, 5);
+            playerGold.append(std::to_string(Character::goldAmount), 0, 5);
+            playerKey.append(std::to_string(Character::key), 0, 5);
             DrawText(playerHealth.c_str(), 55.f, 45.f, 40, RED);
             DrawText(playerExperience.c_str(), 450.f, 45.f, 40, YELLOW);
+            DrawText(playerGold.c_str(), 450.f, 90.f, 40, YELLOW);
+            if(Character::key > 0) DrawText(playerKey.c_str(), 450.f, 135.f, 40, RED);
 
         }
         //checking player-map bounds
@@ -188,43 +206,42 @@ void UpdateGameplayScreen(void)
         for (auto prop : props)
         {
             //debug lines
-            DrawRectangleLines(
+            /*DrawRectangleLines(
                 prop.getCollisionRec(player.getWorldPos()).x,
                 prop.getCollisionRec(player.getWorldPos()).y,
                 prop.getCollisionRec(player.getWorldPos()).width,
                 prop.getCollisionRec(player.getWorldPos()).height,
                 RED
-            );
+            );*/
             if (CheckCollisionRecs(prop.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
             {
                 player.undoMovement();
             }
+            if (CheckCollisionRecs(pot.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
+            {
+                pot.interact(&player);
+            }
+            if (CheckCollisionRecs(gold.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
+            {
+                gold.interact(&player);
+            }
+            if (CheckCollisionRecs(key.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
+            {
+                key.interact(&player);
+            }
         }
         
-        //checking enemy-prop collision
         for (auto enemy : enemies)
         {
             enemy->tick(GetFrameTime(),&player);
             //debug lines
-            DrawRectangleLines(
-                enemy->getCollisionRec().x,
-                enemy->getCollisionRec().y,
-                enemy->getCollisionRec().width,
-                enemy->getCollisionRec().height,
-                RED
-            );
-
-            //to fix
-            //for (auto prop: props) {
-            //    //debug info
-            //    //std::cout << "prop: " << prop.getCollisionRec(enemy->getScreenPos()).x << " " << prop.getCollisionRec(enemy->getScreenPos()).y << "\n";
-            //    //std::cout << "enemy: " << enemy->getCollisionRec().x << " " << enemy->getCollisionRec().y << "\n";
-
-            //    if (CheckCollisionRecs(enemy->getCollisionRec(), prop.getCollisionRec(player.getScreenPos())))
-            //    { 
-            //        enemy->undoMovement();
-            //    }
-            //}
+            //DrawRectangleLines(
+            //    enemy->getCollisionRec().x,
+            //    enemy->getCollisionRec().y,
+            //    enemy->getCollisionRec().width,
+            //    enemy->getCollisionRec().height,
+            //    RED
+            //);
         }
 
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -248,13 +265,12 @@ void UpdateGameplayScreen(void)
         UnloadGameplayScreen();
     }
     UnloadSound(game);
-
 }
 
 // Gameplay Screen Draw logic
 void DrawGameplayScreen(void)
 {
-    // TODO: Draw GAMEPLAY screen here!
+
 }
 
 // Gameplay Screen Unload logic

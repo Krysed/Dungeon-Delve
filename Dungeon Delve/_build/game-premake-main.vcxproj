@@ -183,7 +183,12 @@
     <ClInclude Include="..\game\src\BaseCharacter.h" />
     <ClInclude Include="..\game\src\Character.h" />
     <ClInclude Include="..\game\src\Enemy.h" />
+    <ClInclude Include="..\game\src\Globals.h" />
+    <ClInclude Include="..\game\src\GoldCoin.h" />
+    <ClInclude Include="..\game\src\Item.h" />
+    <ClInclude Include="..\game\src\Key.h" />
     <ClInclude Include="..\game\src\mapLayouts.h" />
+    <ClInclude Include="..\game\src\Potion.h" />
     <ClInclude Include="..\game\src\Prop.h" />
     <ClInclude Include="..\game\src\screens.h" />
   </ItemGroup>
@@ -191,7 +196,11 @@
     <ClCompile Include="..\game\src\BaseCharacter.cpp" />
     <ClCompile Include="..\game\src\Character.cpp" />
     <ClCompile Include="..\game\src\Enemy.cpp" />
+    <ClCompile Include="..\game\src\GoldCoin.cpp" />
+    <ClCompile Include="..\game\src\Item.cpp" />
+    <ClCompile Include="..\game\src\Key.cpp" />
     <ClCompile Include="..\game\src\main.cpp" />
+    <ClCompile Include="..\game\src\Potion.cpp" />
     <ClCompile Include="..\game\src\Prop.cpp" />
     <ClCompile Include="..\game\src\screen_ending.cpp" />
     <ClCompile Include="..\game\src\screen_gameplay.cpp" />

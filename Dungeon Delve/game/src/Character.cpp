@@ -16,6 +16,11 @@ Vector2 Character::getScreenPos()
     };
 }
 
+void Character::setMaxHealth(float value)
+{
+    maxHealth += value;
+}
+
 void Character::tick(float deltaTime)
 {
 
@@ -72,6 +77,11 @@ void Character::tick(float deltaTime)
     //    weaponCollisionRec.height,
     //    RED
     //);
+}
+void Character::heal(float amount)
+{
+    if(health < maxHealth) health += amount;
+    if (health > maxHealth) health = maxHealth;
 }
 void Character::takeDamage(float damage)
 {
