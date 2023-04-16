@@ -265,6 +265,7 @@ static void UpdateDrawFrame(void)
                 UpdateEndingScreen();
 
                 if (FinishEndingScreen() == 1) TransitionToScreen(TITLE);
+                else if (FinishEndingScreen() == 2)TransitionToScreen(GAMEPLAY);
 
             } break;
             default: break;

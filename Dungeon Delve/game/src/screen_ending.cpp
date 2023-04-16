@@ -38,7 +38,6 @@ void InitEndingScreen(void)
     framesCounter = 0;
     finishScreen = 0;
 }
-
 // Ending Screen Update logic
 void UpdateEndingScreen(void)
 {
@@ -65,7 +64,7 @@ void UpdateEndingScreen(void)
     if (CheckCollisionPointRec(GetMousePosition(), buttonRestart) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
         // Set finishScreen to the ID of the screen you want to switch to
-        finishScreen = GAMEPLAY;
+        finishScreen = 2;
     }
     if (CheckCollisionPointRec(GetMousePosition(), buttonMenu) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {

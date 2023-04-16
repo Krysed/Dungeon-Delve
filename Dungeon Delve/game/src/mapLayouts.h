@@ -40,6 +40,43 @@ std::string mapLayout[numOfProps]{
 	"                                   ",
 	"                                   "
 };
+std::string mapDungeonLayout[numOfProps]{
+	"                                   ",
+	"                                   ",
+	"                                   ",
+	"                                   ",
+	"                                   ",
+	"                                   ",
+	"                                   ",
+	"    wwwwwwwwwwwwwwwwwwww           ",
+	"          ww        s  w           ",
+	"          ww        s  w           ",
+	"                    w  w           ",
+	"       wwwwwwwwwwwwwwwww           ",
+	"       b  xx                       ",
+	"          xx        wwww  xx       ",
+	"          xx        ssss  xx       ",
+	"                          xx       ",
+	"                                   ",
+	"       b  xx   s    b x   xx       ",
+	"       b  xx        xxx   xx       ",
+	"                                   ",
+	"       b  xx        xxx   bb       ",
+	"       b  xx         xx            ",
+	"       b  xx   b    b x   xx       ",
+	"       b  xx         xx    b       ",
+	"                    xxx   xx       ",
+	"       b  xx         xx   xx       ",
+	"       b  xx    b         xx       ",
+	"       b  xx        xxx   xx       ",
+	"          xx         xx   xx       ",
+	"       s  xx        xxx   xx       ",
+	"                                   ",
+	"       b  xx        xxx   bb       ",
+	"                                   ",
+	"                                   ",
+	"                                   "
+};
 
 
 std::string mapLayoutEnemies[numOfProps]{

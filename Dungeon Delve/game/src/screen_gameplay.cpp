@@ -22,6 +22,7 @@
 *     3. This notice may not be removed or altered from any source distribution.
 *
 **********************************************************************************************/
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -45,6 +46,8 @@ static int finishScreen = 0;
 int Character::experience = 0;
 int Character::goldAmount = 0;
 int Character::key = 0;
+
+std::string currentMap;
 void InitGameplayScreen(void)
 {
     framesCounter = 0;
@@ -83,67 +86,46 @@ void UpdateGameplayScreen(void)
         }
     }
 
+    std::vector<Prop>dungeonProps{};
+    for (int i = 0; i < numOfProps; i++)
+
+    {
+        for (int j = 0; j < numOfProps; j++)
+        {
+            if (mapDungeonLayout[i][j] == ' ')continue;
+            else if (mapDungeonLayout[i][j] == 'w')dungeonProps.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture(wall1Texture) });
+            else if (mapDungeonLayout[i][j] == 'x')dungeonProps.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85 }, LoadTexture(wall2Texture) });
+            else if (mapDungeonLayout[i][j] == 's')dungeonProps.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture(wall3Texture) });
+            else if (mapDungeonLayout[i][j] == 'b')dungeonProps.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture(rockTexture) });
+        }
+    }
+    std::vector<Prop>currentProps = props;
+    //Enemies
+    std::vector<Enemy> enemiesArray;
+    for (int i = 0; i < numOfProps; i++)
+    {
+        for (int j = 0; j < numOfProps; j++)
+        {
+            if (mapLayoutEnemies[i][j] == ' ')continue;
+            else if (mapLayoutEnemies[i][j] == 'x')enemiesArray.push_back(Enemy{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture(goblinIdleTexture),LoadTexture(goblinRunTexture) });
+            else if (mapLayoutEnemies[i][j] == 'o')enemiesArray.push_back(Enemy{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture(slimeIdleTexture),LoadTexture(slimeRunTexture) });
+            else if (mapLayoutEnemies[i][j] == 's')enemiesArray.push_back(Enemy{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture(skeletonIdleTexture),LoadTexture(skeletonRunTexture) });
+        }
+    }
+    std::vector<Enemy*> enemies;
+    for (int i = 0; i < enemiesArray.size(); i++) {
+        enemies.push_back(&enemiesArray[i]);
+        enemies[i]->setSpeed(3.f);
+    }
+
+
     //potion test
     Potion pot(Vector2{500.f,500.f}, LoadTexture(potionTexture));
     GoldCoin gold(Vector2{ 550.f,500.f }, LoadTexture(coinTexture));
     Key key(Vector2{ 600.f,500.f }, LoadTexture(keyTexture));
     HealthIncrease health(Vector2{ 500.f,550.f }, LoadTexture(healthTexture));
     Stairs stairs(Vector2{ 800.f,500.f }, LoadTexture(stairLockedTexture));
-    //Key
-    Enemy goblin
-    {
-        Vector2{800.f,300.f},
-        LoadTexture(goblinIdleTexture),
-        LoadTexture(goblinRunTexture)
-    };
-    Enemy goblin2
-    {
-        Vector2{1200.f,300.f},
-        LoadTexture(goblinIdleTexture),
-        LoadTexture(goblinRunTexture)
-    };
-    Enemy goblin3
-    {
-        Vector2{1000.f,700.f},
-        LoadTexture(goblinIdleTexture),
-        LoadTexture(goblinRunTexture)
-    };
-    Enemy slime{ Vector2{800.f,400.f},
-        LoadTexture(slimeIdleTexture),
-        LoadTexture(slimeRunTexture)
-    };
-    Enemy slime2{ Vector2{800.f,1600.f},
-        LoadTexture(slimeIdleTexture),
-        LoadTexture(slimeRunTexture)
-    };
-    Enemy slime3{ Vector2{1300.f,1600.f},
-        LoadTexture(slimeIdleTexture),
-        LoadTexture(slimeRunTexture)
-    };
-    Enemy skeleton{ Vector2{700.f,800.f},
-        LoadTexture(skeletonIdleTexture),
-        LoadTexture(skeletonRunTexture)
-    };
-    Enemy skeleton2{ Vector2{700.f,1200.f},
-        LoadTexture(skeletonIdleTexture),
-        LoadTexture(skeletonRunTexture)
-    };
-    Enemy skeleton3{ Vector2{700.f,1500.f},
-        LoadTexture(skeletonIdleTexture),
-        LoadTexture(skeletonRunTexture)
-    };
-    Enemy* enemies[9]{
-        &goblin,
-        &goblin2,
-        &goblin3,
-        &slime,
-        &slime2,
-        &slime3,
-        &skeleton,
-        &skeleton2,
-        &skeleton3
-    };
-    std::cout << "map.id " << map.id << " | map.mipmaps " << map.mipmaps << "\n";
+
     for (auto enemy : enemies)
     {
         enemy->setTarget(&player);
@@ -157,10 +139,16 @@ void UpdateGameplayScreen(void)
         }
         // Fullscreen
         if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
+        {
             ToggleFullscreen();
+        }
         if (IsKeyPressed(KEY_E) && CheckCollisionRecs(stairs.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
-        {            
-            if(stairs.getConsumed())map = LoadTexture(dungeonMap);
+        {
+            if (stairs.getConsumed()) {
+                map = LoadTexture(dungeonMap);
+                currentMap = dungeonMap;
+                currentProps = dungeonProps;
+            }
 
             if (Character::key > 0) {
                 Character::key--;
@@ -181,7 +169,7 @@ void UpdateGameplayScreen(void)
         if (!key.getConsumed())key.Render(player.getWorldPos());
         if (!health.getConsumed())health.Render(player.getWorldPos());
 
-        for (auto prop : props)
+        for (auto prop : currentProps)
         {
             prop.Render(player.getWorldPos());
             //stairs.Render(player.getWorldPos());
@@ -223,7 +211,7 @@ void UpdateGameplayScreen(void)
             player.undoMovement();
         }
         //checking player-prop collision
-        for (auto prop : props)
+        for (auto prop : currentProps)
         {
             //debug lines
             /*DrawRectangleLines(
@@ -293,6 +281,9 @@ void UpdateGameplayScreen(void)
     std::ofstream outfile("./game/experience.txt");
     outfile << Character::experience;
     outfile.close();
+    Character::key = 0;
+    Character::goldAmount = 0;
+    Character::experience = 0;
 }
 
 // Gameplay Screen Draw logic
