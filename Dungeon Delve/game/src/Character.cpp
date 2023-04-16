@@ -26,10 +26,10 @@ void Character::tick(float deltaTime)
 
     if (!getAlive())return;
 
-    if (IsKeyDown(KEY_A)) velocity.x -= 1.0;
-    if (IsKeyDown(KEY_D)) velocity.x += 1.0;
-    if (IsKeyDown(KEY_W)) velocity.y -= 1.0;
-    if (IsKeyDown(KEY_S)) velocity.y += 1.0;
+    if ((IsKeyDown(KEY_A)) || (IsKeyDown(KEY_LEFT))) velocity.x -= 1.0;
+    if ((IsKeyDown(KEY_D)) || (IsKeyDown(KEY_RIGHT))) velocity.x += 1.0;
+    if ((IsKeyDown(KEY_W)) || (IsKeyDown(KEY_UP))) velocity.y -= 1.0;
+    if ((IsKeyDown(KEY_S)) || (IsKeyDown(KEY_DOWN))) velocity.y += 1.0;
     BaseCharacter::tick(deltaTime);
 
     Vector2 origin{};

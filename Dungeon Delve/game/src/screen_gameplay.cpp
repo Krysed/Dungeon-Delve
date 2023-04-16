@@ -153,7 +153,9 @@ void UpdateGameplayScreen(void)
             finishScreen = 1;
             //PlaySound(fxCoin);
         }
-
+        // Fullscreen
+        if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
+            ToggleFullscreen();
         if (IsKeyPressed(KEY_E) && CheckCollisionRecs(stairs.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
         {            
             if(stairs.getConsumed())map = LoadTexture(dungeonMap);
