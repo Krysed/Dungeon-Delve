@@ -38,6 +38,7 @@
 #include "screens.h"
 #include "src/Key.h"
 #include "raylib.h"
+#include "fstream"
 
 static int framesCounter = 0;
 static int finishScreen = 0;
@@ -48,6 +49,7 @@ void InitGameplayScreen(void)
 {
     framesCounter = 0;
     finishScreen = 0;
+    Character::experience = 0;
 }
 
 // Gameplay Screen Update logic
@@ -189,7 +191,7 @@ void UpdateGameplayScreen(void)
         if (!player.getAlive()) 
         {
             DrawText("Game Over", 300.f, 80.f, 40, RED);
-            Character::experience = 0;
+            DrawText(TextFormat("Final Experience: %d", Character::experience), 210.f, 250.f, 40, YELLOW);
             EndDrawing();
             continue;
         }
@@ -287,6 +289,10 @@ void UpdateGameplayScreen(void)
         UnloadGameplayScreen();
     }
     UnloadSound(game);
+    // Saving final experience to file
+    std::ofstream outfile("./game/experience.txt");
+    outfile << Character::experience;
+    outfile.close();
 }
 
 // Gameplay Screen Draw logic
