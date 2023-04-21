@@ -40,6 +40,7 @@ static bool isIncreasing = true;
 void InitTitleScreen(void)
 {
     // TODO: Initialize TITLE screen variables here!
+    SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
     framesCounter = 0;
     finishScreen = 0;
     image = LoadImage("resources/screens/DungeonDelve.png");

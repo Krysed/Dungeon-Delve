@@ -67,6 +67,8 @@ void InitLogoScreen(void)
 
     state = 0;
     alpha = 1.0f;
+
+    SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
 }
 
 // Logo Screen Update logic
