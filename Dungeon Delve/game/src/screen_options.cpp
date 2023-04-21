@@ -6,6 +6,10 @@
 //----------------------------------------------------------------------------------
 static int framesCounter = 0;
 static int finishScreen = 0;
+static Image image;
+static Texture2D background;
+static float alpha = 0.0f;
+static bool isIncreasing = true;
 
 //----------------------------------------------------------------------------------
 // Options Screen Functions Definition
@@ -17,31 +21,132 @@ void InitOptionsScreen(void)
     // TODO: Initialize OPTIONS screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+    image = LoadImage("resources/screens/menu.png");
+    ImageResize(&image, 800, 600);
+    background = LoadTextureFromImage(image);
 }
 
 // Options Screen Update logic
 void UpdateOptionsScreen(void)
 {
     // TODO: Update OPTIONS screen variables here!
+    //Draw background
+    DrawTexture(background, 0, 0, WHITE);
+    //Draw buttons
+    DrawRectangle(290, 200, 220, 50, DARKGRAY);
+    DrawText("PLAY GAME", 340, 215, 20, WHITE);
 
+    DrawRectangle(290, 270, 220, 50, DARKGRAY);
+    DrawText("SCORE BOARD", 327, 285, 20, WHITE);
+
+    DrawRectangle(290, 340, 220, 50, DARKGRAY);
+    DrawText("EXIT", 375, 355, 20, WHITE);
 //----------------------------------------------------------------------------------
 // Logic of button
 //----------------------------------------------------------------------------------
 
-    Rectangle buttonPlay = { 400, 300, 200, 50 };
+    Rectangle buttonPlay = { 290, 185, 220, 50 };
+    Rectangle buttonScore = { 290, 255, 220, 50 };
+    Rectangle buttonExit = { 290, 325, 220, 50 };
+    //if (CheckCollisionPointRec(GetMousePosition(), buttonRestart) || CheckCollisionPointRec(GetMousePosition(), buttonMenu) || CheckCollisionPointRec(GetMousePosition(), buttonExit))
     if (CheckCollisionPointRec(GetMousePosition(), buttonPlay))
     {
         //Change cursor on button
         SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
+        //Animation
+        if (isIncreasing)
+        {
+            alpha += 0.02f;
+            if (alpha > 1.0f)
+            {
+                alpha = 1.0f;
+                isIncreasing = false;
+            }
+        }
+        else
+        {
+            alpha -= 0.02f;
+            if (alpha < 0.0f)
+            {
+                alpha = 0.0f;
+                isIncreasing = true;
+            }
+        }
+        Color rectColor = { 79, 79, 79, (unsigned char)(alpha * 255) };
+        DrawRectangle(290, 200, 220, 50, rectColor);
+    }
+    else if (CheckCollisionPointRec(GetMousePosition(), buttonScore))
+    {
+        //Change cursor on button
+        SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
+        //Animation
+        if (isIncreasing)
+        {
+            alpha += 0.02f;
+            if (alpha > 1.0f)
+            {
+                alpha = 1.0f;
+                isIncreasing = false;
+            }
+        }
+        else
+        {
+            alpha -= 0.02f;
+            if (alpha < 0.0f)
+            {
+                alpha = 0.0f;
+                isIncreasing = true;
+            }
+        }
+        Color rectColor = { 79, 79, 79, (unsigned char)(alpha * 255) };
+        DrawRectangle(290, 270, 220, 50, rectColor);
+    }
+    else if (CheckCollisionPointRec(GetMousePosition(), buttonExit))
+    {
+        //Change cursor on button
+        //Animation
+        SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
+        if (isIncreasing)
+        {
+            alpha += 0.02f;
+            if (alpha > 1.0f)
+            {
+                alpha = 1.0f;
+                isIncreasing = false;
+            }
+        }
+        else
+        {
+            alpha -= 0.02f;
+            if (alpha < 0.0f)
+            {
+                alpha = 0.0f;
+                isIncreasing = true;
+            }
+        }
+        Color rectColor = { 79, 79, 79, (unsigned char)(alpha * 255) };
+        DrawRectangle(290, 340, 220, 50, rectColor);
     }
     else
     {
         SetMouseCursor(MOUSE_CURSOR_DEFAULT);
     }
 
+    //Button forwards
     if (CheckCollisionPointRec(GetMousePosition(), buttonPlay) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
-        finishScreen = 2;
+        // Set finishScreen to the ID of the screen you want to switch to
+        finishScreen = 3;
+    }
+    //if (CheckCollisionPointRec(GetMousePosition(), buttonMenu) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    //{
+    //    // Set finishScreen to the ID of the screen you want to switch to
+    //    finishScreen = 1;
+    //}
+    if (CheckCollisionPointRec(GetMousePosition(), buttonExit) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    {
+        // Set finishScreen to the ID of the screen you want to switch to
+        CloseWindow();
     }
 
 }
@@ -50,16 +155,6 @@ void UpdateOptionsScreen(void)
 void DrawOptionsScreen(void)
 {
     // TODO: Draw OPTIONS screen here!
-
-    // Draw the button
-    DrawRectangle(290, 185, 220, 50, DARKGRAY);
-    DrawText("PLAY GAME", 352, 200, 20, WHITE);
-
-    DrawRectangle(290, 255, 220, 50, DARKGRAY);
-    DrawText("SCORE BOARD", 343, 270, 20, WHITE);
-
-    DrawRectangle(290, 325, 220, 50, DARKGRAY);
-    DrawText("EXIT", 375, 340, 20, WHITE);
 }
 
 // Options Screen Unload logic
