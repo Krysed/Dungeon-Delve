@@ -12,6 +12,7 @@ public:
 	Rectangle getCollisionRec(Vector2 knightPos);
 	Vector2 getWorldPos() { return worldPos; }
 	void setTexture(Texture2D tex);
+	void setScale(float scale);
 
 private:
 	Texture2D texture{};

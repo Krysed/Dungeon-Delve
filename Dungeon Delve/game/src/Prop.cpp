@@ -28,3 +28,7 @@ void Prop::setTexture(Texture2D tex)
 {
 	texture = tex;
 }
+void Prop::setScale(float scale)
+{
+	this->scale = scale;
+}

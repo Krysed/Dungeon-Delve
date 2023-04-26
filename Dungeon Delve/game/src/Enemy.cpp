@@ -4,6 +4,7 @@
 
 Enemy::Enemy(Vector2 pos, Texture2D idle_texture, Texture2D run_texture)
 {
+    startPostion = pos;
     worldPosition = pos;
     texture = idle_texture;
     idle = idle_texture;
@@ -64,4 +65,15 @@ void Enemy::tick(float deltaTime)
 Vector2 Enemy::getScreenPos()
 {
     return Vector2Subtract(worldPosition, target->getWorldPos());
+}
+
+void Enemy::setWorldPos(float x,float y)
+{
+    worldPosition.x = x;
+    worldPosition.y = y;
+}
+
+Vector2 Enemy::getStartPosition()
+{
+    return startPostion;
 }

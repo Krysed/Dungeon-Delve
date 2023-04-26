@@ -62,6 +62,8 @@ void UpdateGameplayScreen(void)
     const int windowHeight{ 600 };
     const float mapScale{ 4.0f };
 
+    int mapVar = 0;
+
     //fix sound
     Sound game = LoadSound(gameplayMusic);
     SetMusicVolume(music, 0.1f);
@@ -99,6 +101,7 @@ void UpdateGameplayScreen(void)
             else if (mapDungeonLayout[i][j] == 'b')dungeonProps.push_back(Prop{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture(rockTexture) });
         }
     }
+
     std::vector<Prop>currentProps = props;
     //Enemies
     std::vector<Enemy> enemiesArray;
@@ -124,7 +127,7 @@ void UpdateGameplayScreen(void)
     GoldCoin gold(Vector2{ 550.f,500.f }, LoadTexture(coinTexture));
     Key key(Vector2{ 600.f,500.f }, LoadTexture(keyTexture));
     HealthIncrease health(Vector2{ 500.f,550.f }, LoadTexture(healthTexture));
-    Stairs stairs(Vector2{ 800.f,500.f }, LoadTexture(stairLockedTexture));
+    Stairs stairs(Vector2{ 400.f,500.f }, LoadTexture(stairLockedTexture));
 
     for (auto enemy : enemies)
     {
@@ -144,12 +147,27 @@ void UpdateGameplayScreen(void)
         }
         if (IsKeyPressed(KEY_E) && CheckCollisionRecs(stairs.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
         {
-            if (stairs.getConsumed()) {
-                map = LoadTexture(dungeonMap);
-                currentMap = dungeonMap;
-                currentProps = dungeonProps;
+            if(mapVar == 0){
+                if (stairs.getConsumed()) {
+                    map = LoadTexture(dungeonMap);
+                    currentMap = dungeonMap;
+                    currentProps = dungeonProps;
+                    mapVar = 1;
+                    for (auto& prop : currentProps)prop.setScale(5.3f);
+                    for (auto& enemy : enemies) {
+                        enemy->setWorldPos(enemy->getStartPosition().x,enemy->getStartPosition().y);
+                        enemy->setAlive(true);
+                    }
+                }
             }
-
+            else if (mapVar == 1) {
+                if (stairs.getConsumed()) {
+                    map = LoadTexture(baseMap);
+                    currentMap = baseMap;
+                    currentProps = props;
+                    mapVar = 0;
+                }
+            }
             if (Character::key > 0) {
                 Character::key--;
                 stairs.setTexture(LoadTexture(stairTexture));
@@ -195,6 +213,7 @@ void UpdateGameplayScreen(void)
             playerExperience.append(std::to_string(Character::experience), 0, 5);
             playerGold.append(std::to_string(Character::goldAmount), 0, 5);
             playerKey.append(std::to_string(Character::key), 0, 5);
+
             DrawText(playerHealth.c_str(), 55.f, 45.f, 40, RED);
             DrawText(playerExperience.c_str(), 450.f, 45.f, 40, YELLOW);
             DrawText(playerGold.c_str(), 450.f, 90.f, 40, YELLOW);
@@ -277,6 +296,7 @@ void UpdateGameplayScreen(void)
         UnloadGameplayScreen();
     }
     UnloadSound(game);
+
     // Saving final experience to file
     std::ofstream outfile("./game/experience.txt");
     outfile << Character::experience;
