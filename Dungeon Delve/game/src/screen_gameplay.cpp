@@ -298,8 +298,9 @@ void UpdateGameplayScreen(void)
     UnloadSound(game);
 
     // Saving final experience to file
-    std::ofstream outfile("./game/experience.txt");
-    outfile << name << ": " << Character::experience;
+    std::ofstream outfile;
+    outfile.open ("./game/experience.txt", std::ios::app);
+    outfile << Character::experience << " - "<< name << std::endl;
     outfile.close();
     Character::key = 0;
     Character::goldAmount = 0;

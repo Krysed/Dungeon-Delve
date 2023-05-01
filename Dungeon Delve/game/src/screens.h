@@ -29,7 +29,7 @@
 //----------------------------------------------------------------------------------
 // Types and Structures Definition
 //----------------------------------------------------------------------------------
-typedef enum GameScreen { UNKNOWN = -1, LOGO = 0, TITLE, OPTIONS, GAMEPLAY, ENDING } GameScreen;
+typedef enum GameScreen { UNKNOWN = -1, LOGO = 0, TITLE, OPTIONS, GAMEPLAY, ENDING, SCORE } GameScreen;
 
 //----------------------------------------------------------------------------------
 // Global Variables Declaration (shared by several modules)
@@ -88,6 +88,15 @@ void UpdateEndingScreen(void);
 void DrawEndingScreen(void);
 void UnloadEndingScreen(void);
 int FinishEndingScreen(void);
+
+//----------------------------------------------------------------------------------
+// Scoreboard Screen Functions Declaration
+//----------------------------------------------------------------------------------
+void InitScoreScreen(void);
+void UpdateScoreScreen(void);
+void DrawScoreScreen(void);
+void UnloadScoreScreen(void);
+int FinishScoreScreen(void);
 
 #ifdef __cplusplus
 }

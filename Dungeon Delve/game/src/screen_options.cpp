@@ -138,13 +138,13 @@ void UpdateOptionsScreen(void)
     if (CheckCollisionPointRec(GetMousePosition(), buttonPlay) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
         // Set finishScreen to the ID of the screen you want to switch to
-        finishScreen = 3;
+        finishScreen = 1;
     }
-    //if (CheckCollisionPointRec(GetMousePosition(), buttonMenu) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-    //{
-    //    // Set finishScreen to the ID of the screen you want to switch to
-    //    finishScreen = 1;
-    //}
+    if (CheckCollisionPointRec(GetMousePosition(), buttonScore) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    {
+        // Set finishScreen to the ID of the screen you want to switch to
+        finishScreen = 2;
+    }
     if (CheckCollisionPointRec(GetMousePosition(), buttonExit) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
         // Set finishScreen to the ID of the screen you want to switch to

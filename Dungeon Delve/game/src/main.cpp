@@ -103,6 +103,7 @@ int main(void)
         case TITLE: UnloadTitleScreen(); break;
         case GAMEPLAY: UnloadGameplayScreen(); break;
         case ENDING: UnloadEndingScreen(); break;
+        case SCORE: UnloadScoreScreen(); break;
         default: break;
     }
 
@@ -132,6 +133,7 @@ static void ChangeToScreen(GameScreen screen)
         case TITLE: UnloadTitleScreen(); break;
         case GAMEPLAY: UnloadGameplayScreen(); break;
         case ENDING: UnloadEndingScreen(); break;
+        case SCORE: UnloadScoreScreen(); break;
         default: break;
     }
 
@@ -142,6 +144,7 @@ static void ChangeToScreen(GameScreen screen)
         case TITLE: InitTitleScreen(); break;
         case GAMEPLAY: InitGameplayScreen(); break;
         case ENDING: InitEndingScreen(); break;
+        case SCORE: UnloadScoreScreen(); break;
         default: break;
     }
 
@@ -179,6 +182,7 @@ static void UpdateTransition(void)
                 case OPTIONS: UnloadOptionsScreen(); break;
                 case GAMEPLAY: UnloadGameplayScreen(); break;
                 case ENDING: UnloadEndingScreen(); break;
+                case SCORE: UnloadScoreScreen(); break;
                 default: break;
             }
 
@@ -189,6 +193,7 @@ static void UpdateTransition(void)
                 case TITLE: InitTitleScreen(); break;
                 case GAMEPLAY: InitGameplayScreen(); break;
                 case ENDING: InitEndingScreen(); break;
+                case SCORE: UnloadScoreScreen(); break;
                 default: break;
             }
 
@@ -250,7 +255,8 @@ static void UpdateDrawFrame(void)
                 UpdateOptionsScreen();
 
                 //if (FinishOptionsScreen()) TransitionToScreen(TITLE);
-                if (FinishOptionsScreen()) TransitionToScreen(GAMEPLAY);
+                if (FinishOptionsScreen() == 1) TransitionToScreen(GAMEPLAY);
+                else if (FinishOptionsScreen() == 2) TransitionToScreen(SCORE);
 
             } break;
             case GAMEPLAY:
@@ -267,6 +273,14 @@ static void UpdateDrawFrame(void)
 
                 if (FinishEndingScreen() == 1) TransitionToScreen(TITLE);
                 else if (FinishEndingScreen() == 2)TransitionToScreen(GAMEPLAY);
+
+            } break;
+            case SCORE:
+            {
+                UpdateScoreScreen();
+
+                if (FinishScoreScreen() == 1) TransitionToScreen(TITLE);
+                else if (FinishScoreScreen() == 2)TransitionToScreen(GAMEPLAY);
 
             } break;
             default: break;
@@ -287,6 +301,7 @@ static void UpdateDrawFrame(void)
             case OPTIONS: DrawOptionsScreen(); break;
             case GAMEPLAY: DrawGameplayScreen(); break;
             case ENDING: DrawEndingScreen(); break;
+            case SCORE: UnloadScoreScreen(); break;
             default: break;
         }
 

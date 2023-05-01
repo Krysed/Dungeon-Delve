@@ -211,6 +211,7 @@
     <ClCompile Include="..\game\src\screen_options.cpp" />
     <ClCompile Include="..\game\src\screen_title.cpp" />
     <ClCompile Include="..\game\src\Stairs.cpp" />
+    <ClCompile Include="screen_score.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="raylib.vcxproj">
