@@ -1,26 +1,2 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: The intermediate directory (obj\x64\Debug\game-premake-main\) contains files shared from another project (game-premake-main.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Enemy.cpp
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\Enemy.cpp(13,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\Enemy.cpp(14,18): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  GoldCoin.cpp
-  HealthIncrease.cpp
-  Item.cpp
-  Key.cpp
-  Potion.cpp
-  Prop.cpp
-  Stairs.cpp
-  screen_gameplay.cpp
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(199,42): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(199,35): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(200,88): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(200,81): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(217,50): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(217,44): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(218,55): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(218,48): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(219,49): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(219,42): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(220,71): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\game\src\screen_gameplay.cpp(220,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
-  game-premake-main.vcxproj -> F:\CppProjects\CppProjekt\Projects\World of WoW\Dungeon Delve\_bin\Debug\game-premake-main.exe
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: Katalog pośredni (obj\x64\Debug\game-premake-main\) zawiera pliki udostępnione z innego projektu (game-premake-main.vcxproj). Może to spowodować niepoprawne zachowanie podczas oczyszczania i ponownej kompilacji.
+  game-premake-main.vcxproj -> C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\_bin\Debug\game-premake-main.exe
