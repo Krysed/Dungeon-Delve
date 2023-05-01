@@ -1,6 +1,15 @@
-Hubert: 17ada: 5
-1 - dawdwd
-6 - 
-4 - 
-0 - 
-0 - 
+10 - Player 1
+9 - Player 2
+17 - Player 5
+5 - Player 4
+2 - Player 3
+4 - Player 6
+6 - Player 12
+1 - Player 11
+0 - Player 7
+10 - Player 10
+16 - Player 8
+13 - Player 9
+12 - Player 14
+11 - Player 13
+15 - Player 15

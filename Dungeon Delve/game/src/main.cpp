@@ -144,7 +144,7 @@ static void ChangeToScreen(GameScreen screen)
         case TITLE: InitTitleScreen(); break;
         case GAMEPLAY: InitGameplayScreen(); break;
         case ENDING: InitEndingScreen(); break;
-        case SCORE: UnloadScoreScreen(); break;
+        case SCORE: InitScoreScreen(); break;
         default: break;
     }
 
@@ -193,7 +193,7 @@ static void UpdateTransition(void)
                 case TITLE: InitTitleScreen(); break;
                 case GAMEPLAY: InitGameplayScreen(); break;
                 case ENDING: InitEndingScreen(); break;
-                case SCORE: UnloadScoreScreen(); break;
+                case SCORE: InitScoreScreen(); break;
                 default: break;
             }
 
@@ -301,7 +301,7 @@ static void UpdateDrawFrame(void)
             case OPTIONS: DrawOptionsScreen(); break;
             case GAMEPLAY: DrawGameplayScreen(); break;
             case ENDING: DrawEndingScreen(); break;
-            case SCORE: UnloadScoreScreen(); break;
+            case SCORE: DrawScoreScreen(); break;
             default: break;
         }
 
