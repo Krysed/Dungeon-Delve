@@ -1,2 +1,5 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: Katalog pośredni (obj\x64\Debug\game-premake-main\) zawiera pliki udostępnione z innego projektu (game-premake-main.vcxproj). Może to spowodować niepoprawne zachowanie podczas oczyszczania i ponownej kompilacji.
-  game-premake-main.vcxproj -> C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\_bin\Debug\game-premake-main.exe
+﻿D:\Microsoft Visual Studio\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(514,5): warning MSB8028: The intermediate directory (obj\x64\Debug\game-premake-main\) contains files shared from another project (game-premake-main.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  screen_options.cpp
+  screen_title.cpp
+  Generating Code...
+  game-premake-main.vcxproj -> C:\Users\Hubert\Desktop\Projekt\Dungeon-Delve\Dungeon Delve\_bin\Debug\game-premake-main.exe

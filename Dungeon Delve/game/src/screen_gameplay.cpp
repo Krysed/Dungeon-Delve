@@ -299,7 +299,7 @@ void UpdateGameplayScreen(void)
 
     // Saving final experience to file
     std::ofstream outfile("./game/experience.txt");
-    outfile << Character::experience;
+    outfile << name << ": " << Character::experience;
     outfile.close();
     Character::key = 0;
     Character::goldAmount = 0;

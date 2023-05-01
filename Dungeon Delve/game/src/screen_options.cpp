@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "screens.h"
+#include <string.h>
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
@@ -10,6 +11,7 @@ static Image image;
 static Texture2D background;
 static float alpha = 0.0f;
 static bool isIncreasing = true;
+char name[10] = "";
 
 //----------------------------------------------------------------------------------
 // Options Screen Functions Definition
@@ -41,9 +43,9 @@ void UpdateOptionsScreen(void)
 
     DrawRectangle(290, 340, 220, 50, DARKGRAY);
     DrawText("EXIT", 375, 355, 20, WHITE);
-//----------------------------------------------------------------------------------
-// Logic of button
-//----------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------
+    // Logic of button
+    //----------------------------------------------------------------------------------
 
     Rectangle buttonPlay = { 290, 185, 220, 50 };
     Rectangle buttonScore = { 290, 255, 220, 50 };
@@ -149,6 +151,25 @@ void UpdateOptionsScreen(void)
         CloseWindow();
     }
 
+    //------------------------------------------------------------------------
+    // NAME FIELD
+    //------------------------------------------------------------------------
+        //Draw name field
+    DrawText("Enter your name:", 280, 100, 20, WHITE);
+    DrawRectangle(280, 130, 240, 50, DARKGRAY);
+    DrawRectangleLines(280, 130, 240, 50, WHITE);
+    DrawText(name, 290, 140, 40, WHITE);
+
+    //Logic of writing
+    int key = GetCharPressed();  // Sprawdza, czy klawisz zosta³ wciœniêty
+    if (key > 0 && strlen(name) < 10)  // Jeœli klawisz zosta³ wciœniêty i imiê nie jest za d³ugie
+    {
+        name[strlen(name)] = (char)key;  // Dodaj wprowadzon¹ literê na koñcu ³añcucha
+    }
+    if (IsKeyPressed(KEY_BACKSPACE) && strlen(name) > 0)  // Jeœli wciœniêto klawisz BACKSPACE i imiê nie jest puste
+    {
+        name[strlen(name) - 1] = '\0';  // Usuñ ostatni¹ literê z ³añcucha
+    }
 }
 
 // Options Screen Draw logic
