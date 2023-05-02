@@ -172,7 +172,11 @@ void UpdateGameplayScreen(void)
                 Character::key--;
                 stairs.setTexture(LoadTexture(stairTexture));
                 stairs.setConsumed(true);
+
             }
+            Sound open = LoadSound(sound1);
+            SetMusicVolume(music, 0.1f);
+            PlaySound(open);
         }
         mapPosition = Vector2Scale(player.getWorldPos(), -1.f);
         //Drawing map

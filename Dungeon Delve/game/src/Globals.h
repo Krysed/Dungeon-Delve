@@ -34,3 +34,4 @@ const char* dungeonMap = "resources/maps/test_map2.png";
 
 //sound
 const char* gameplayMusic = "resources/game1.wav";
+const char* sound1 = "resources/laugh.wav";
