@@ -279,7 +279,7 @@ static void UpdateDrawFrame(void)
             {
                 UpdateScoreScreen();
 
-                if (FinishScoreScreen() == 1) TransitionToScreen(TITLE);
+                if (FinishScoreScreen() == 1) TransitionToScreen(OPTIONS);
                 else if (FinishScoreScreen() == 2)TransitionToScreen(GAMEPLAY);
 
             } break;

@@ -26,7 +26,7 @@ void InitScoreScreen(void)
     // TODO: Initialize OPTIONS screen variables here!
     framesCounter = 0;
     finishScreen = 0;
-    image = LoadImage("resources/screens/menu.png");
+    image = LoadImage("resources/screens/menutwo.png");
     ImageResize(&image, 800, 600);
     background = LoadTextureFromImage(image);
 }
@@ -59,16 +59,60 @@ void DrawScoreScreen(void)
         });
 
     file.close();
-    TraceLog(LOG_INFO, "Drawing sorted file contents...");
 
     // Draw sorted file content on the screen
     int lineCount = 0;
     for (int i = 0; i < lines.size() && lineCount < 10; i++) {
-        DrawText(lines[i].c_str(), 100, 100 + lineCount * 20, 20, BLACK);
+        DrawText(lines[i].c_str(), 335, 180 + lineCount * 20, 20, BLACK);
         lineCount++;
+
+        
+    }
+
+    DrawRectangle(240, 130, 326, 30, DARKGRAY);
+    DrawText("TOP 10", 368, 135, 20, WHITE);
+
+    //Button
+    DrawRectangle(290, 400, 220, 50, DARKGRAY);
+    DrawText("RETURN", 358, 415, 20, WHITE);
+    Rectangle buttonReturn = { 290, 400, 220, 50 };
+
+    if (CheckCollisionPointRec(GetMousePosition(), buttonReturn))
+    {
+        //Change cursor on button
+        SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
+        //Animation
+        if (isIncreasing)
+        {
+            alpha += 0.02f;
+            if (alpha > 1.0f)
+            {
+                alpha = 1.0f;
+                isIncreasing = false;
+            }
+        }
+        else
+        {
+            alpha -= 0.02f;
+            if (alpha < 0.0f)
+            {
+                alpha = 0.0f;
+                isIncreasing = true;
+            }
+        }
+        Color rectColor = { 79, 79, 79, (unsigned char)(alpha * 255) };
+        DrawRectangle(290, 400, 220, 50, rectColor);
+    }
+    else
+    {
+        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+    }
+    if (CheckCollisionPointRec(GetMousePosition(), buttonReturn) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    {
+        // Set finishScreen to the ID of the screen you want to switch to
+        finishScreen = 1;
     }
 }
-
 
 // Options Screen Unload logic
 void UnloadScoreScreen(void)
