@@ -48,6 +48,9 @@
     <ClInclude Include="..\game\src\Stairs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\game\src\NPC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\game\src\main.cpp">
@@ -99,6 +102,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="screen_score.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game\src\NPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,6 +7,7 @@ const char* slimeIdleTexture = "resources/characters/slime_idle_spritesheet.png"
 const char* slimeRunTexture = "resources/characters/slime_run_spritesheet.png";
 const char* skeletonIdleTexture = "resources/characters/skeleton_idle_spritesheet.png";
 const char* skeletonRunTexture = "resources/characters/skeleton_run_spritesheet.png";
+const char* npcIdleTexture = "resources/characters/npc_idle_spritesheet.png";
 
 //Prop textures
 const char* rockTexture = "resources/props/Rock.png";

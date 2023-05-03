@@ -189,6 +189,7 @@
     <ClInclude Include="..\game\src\Item.h" />
     <ClInclude Include="..\game\src\Key.h" />
     <ClInclude Include="..\game\src\mapLayouts.h" />
+    <ClInclude Include="..\game\src\NPC.h" />
     <ClInclude Include="..\game\src\Potion.h" />
     <ClInclude Include="..\game\src\Prop.h" />
     <ClInclude Include="..\game\src\screens.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="..\game\src\Item.cpp" />
     <ClCompile Include="..\game\src\Key.cpp" />
     <ClCompile Include="..\game\src\main.cpp" />
+    <ClCompile Include="..\game\src\NPC.cpp" />
     <ClCompile Include="..\game\src\Potion.cpp" />
     <ClCompile Include="..\game\src\Prop.cpp" />
     <ClCompile Include="..\game\src\screen_ending.cpp" />

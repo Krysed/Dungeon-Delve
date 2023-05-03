@@ -38,6 +38,7 @@
 #include "raymath.h"
 #include "screens.h"
 #include "src/Key.h"
+#include "src/NPC.h"
 #include "raylib.h"
 #include "fstream"
 
@@ -128,6 +129,7 @@ void UpdateGameplayScreen(void)
     Key key(Vector2{ 600.f,500.f }, LoadTexture(keyTexture));
     HealthIncrease health(Vector2{ 500.f,550.f }, LoadTexture(healthTexture));
     Stairs stairs(Vector2{ 400.f,500.f }, LoadTexture(stairLockedTexture));
+    NPC npc(Vector2{ 400.f,550.f }, LoadTexture(npcIdleTexture));
 
     for (auto enemy : enemies)
     {
@@ -187,7 +189,6 @@ void UpdateGameplayScreen(void)
         DrawTextureEx(map, mapPosition, 0.0f, mapScale, WHITE);
         
         stairs.Render(player.getWorldPos());
-        
         player.tick(GetFrameTime());
         
         if(!pot.getConsumed())pot.Render(player.getWorldPos());
