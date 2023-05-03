@@ -174,6 +174,7 @@ void UpdateGameplayScreen(void)
                 stairs.setConsumed(true);
 
             }
+            // Enter dungeon sound
             Sound open = LoadSound(sound1);
             SetMusicVolume(music, 0.1f);
             PlaySound(open);
@@ -290,6 +291,18 @@ void UpdateGameplayScreen(void)
                     enemy->setAlive(false);
                 }
             }
+            // Cutting sound
+            Sound cut = LoadSound(sound2);
+            SetMusicVolume(music, 0.1f);
+            PlaySound(cut);
+        }
+        
+        // DŸwiêk zwiêkszenia szybkoœci poruszania siê
+        if (IsKeyPressed(KEY_LEFT_SHIFT))
+        {
+            Sound superspeed = LoadSound(sound3);
+            SetMusicVolume(music, 0.1f);
+            PlaySound(superspeed);
         }
         if(IsKeyDown(KEY_LEFT_SHIFT))
         {
