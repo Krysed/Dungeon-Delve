@@ -37,3 +37,4 @@ const char* gameplayMusic = "resources/game1.wav";
 const char* sound1 = "resources/laugh.wav";
 const char* sound2 = "resources/cut.wav";
 const char* sound3 = "resources/run.wav";
+const char* sound4 = "resources/fullscreen.wav";

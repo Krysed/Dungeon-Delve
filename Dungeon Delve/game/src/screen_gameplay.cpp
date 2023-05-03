@@ -144,6 +144,9 @@ void UpdateGameplayScreen(void)
         if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
         {
             ToggleFullscreen();
+            Sound fullscreen = LoadSound(sound4);
+            SetMusicVolume(music, 0.1f);
+            PlaySound(fullscreen);
         }
         if (IsKeyPressed(KEY_E) && CheckCollisionRecs(stairs.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
         {
