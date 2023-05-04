@@ -14,7 +14,7 @@ public:
 	void setTexture(Texture2D tex);
 	void setScale(float scale);
 
-private:
+protected:
 	Texture2D texture{};
 	Vector2 worldPos{};
 	float scale{ 4.f };

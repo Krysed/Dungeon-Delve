@@ -64,11 +64,21 @@ void UpdateGameplayScreen(void)
     const float mapScale{ 4.0f };
 
     int mapVar = 0;
+    bool isBuying = false;
 
     //fix sound
-    Sound game = LoadSound(gameplayMusic);
-    SetMusicVolume(music, 0.1f);
-    PlaySound(game);
+    Sound gameMusic = LoadSound(gameplayMusic);
+    SetSoundVolume(gameMusic, 0.5f);
+    
+    // Cutting sound
+    Sound cutSound = LoadSound(sound2);
+    SetSoundVolume(cutSound, 0.1f);
+    
+    Sound openSound = LoadSound(sound1);
+    SetSoundVolume(openSound, 0.1f);
+    
+    Sound sprintSound = LoadSound(sound3);
+    SetSoundVolume(sprintSound, 0.3f);
 
     Texture2D map = LoadTexture(baseMap);
     Vector2 mapPosition{ 0.0f,0.0f };
@@ -129,7 +139,7 @@ void UpdateGameplayScreen(void)
     Key key(Vector2{ 600.f,500.f }, LoadTexture(keyTexture));
     HealthIncrease health(Vector2{ 500.f,550.f }, LoadTexture(healthTexture));
     Stairs stairs(Vector2{ 400.f,500.f }, LoadTexture(stairLockedTexture));
-    NPC npc(Vector2{ 400.f,550.f }, LoadTexture(npcIdleTexture));
+    NPC npc(Vector2{ 400.f,550.f }, LoadTexture(npcTexture));
 
     for (auto enemy : enemies)
     {
@@ -140,7 +150,6 @@ void UpdateGameplayScreen(void)
         if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP) || IsKeyPressed(KEY_ESCAPE))
         {
             finishScreen = 1;
-            //PlaySound(fxCoin);
         }
         // Fullscreen
         if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
@@ -150,6 +159,12 @@ void UpdateGameplayScreen(void)
             SetMusicVolume(music, 0.1f);
             PlaySound(fullscreen);
         }
+
+        while (!IsSoundPlaying(gameMusic)) 
+        {
+            PlaySound(gameMusic);
+        }
+
         if (IsKeyPressed(KEY_E) && CheckCollisionRecs(stairs.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
         {
             if(mapVar == 0){
@@ -163,6 +178,8 @@ void UpdateGameplayScreen(void)
                         enemy->setWorldPos(enemy->getStartPosition().x,enemy->getStartPosition().y);
                         enemy->setAlive(true);
                     }
+                    // Enter dungeon sound
+                    PlaySound(openSound);
                 }
             }
             else if (mapVar == 1) {
@@ -179,10 +196,6 @@ void UpdateGameplayScreen(void)
                 stairs.setConsumed(true);
 
             }
-            // Enter dungeon sound
-            Sound open = LoadSound(sound1);
-            SetMusicVolume(music, 0.1f);
-            PlaySound(open);
         }
         mapPosition = Vector2Scale(player.getWorldPos(), -1.f);
         //Drawing map
@@ -190,7 +203,33 @@ void UpdateGameplayScreen(void)
         
         stairs.Render(player.getWorldPos());
         player.tick(GetFrameTime());
+
+        npc.Render(player.getWorldPos());
         
+        if (CheckCollisionRecs(npc.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
+        {
+            isBuying = true;
+        }
+        else
+        {
+            isBuying = false;
+        }
+
+        if (isBuying) 
+        {
+            DrawRectangle(45.f, windowHeight / 2 + 45, 720, 65, BEIGE);
+            DrawText("Do you want to buy health potion for 5 gold?    Press Y",50.f, windowHeight /2+ 50, 25, YELLOW);
+            DrawText("Do you want to buy health increase for 10 gold? Press E",50.f, windowHeight /2 +80, 25, YELLOW);
+            if (IsKeyPressed(KEY_Y) && Character::goldAmount >= 5) {
+                player.heal(20);
+                Character::goldAmount -= 5;
+            }            
+            if (IsKeyPressed(KEY_E) && Character::goldAmount >= 10) {
+                player.setMaxHealth(50);
+                player.heal(50);
+                Character::goldAmount -= 10;
+            }
+        }
         if(!pot.getConsumed())pot.Render(player.getWorldPos());
         if (!gold.getConsumed())gold.Render(player.getWorldPos());
         if (!key.getConsumed())key.Render(player.getWorldPos());
@@ -199,8 +238,6 @@ void UpdateGameplayScreen(void)
         for (auto prop : currentProps)
         {
             prop.Render(player.getWorldPos());
-            //stairs.Render(player.getWorldPos());
-
         }
 
         if (!player.getAlive()) 
@@ -210,6 +247,7 @@ void UpdateGameplayScreen(void)
             EndDrawing();
             continue;
         }
+
         else
         {
             //write Player character stats to screen
@@ -229,6 +267,7 @@ void UpdateGameplayScreen(void)
             if(Character::key > 0) DrawText(playerKey.c_str(), 450.f, 135.f, 40, RED);
 
         }
+
         //checking player-map bounds
         if (
             player.getWorldPos().x < 0.f ||
@@ -238,6 +277,7 @@ void UpdateGameplayScreen(void)
             ) {
             player.undoMovement();
         }
+
         //checking player-prop collision
         for (auto prop : currentProps)
         {
@@ -290,33 +330,28 @@ void UpdateGameplayScreen(void)
             {
                 if (CheckCollisionRecs(enemy->getCollisionRec(), player.getWeaponCollisionRec()))
                 {
-                    if(enemy->getAlive()==true)
+                    if (enemy->getAlive() == true) {
                         Character::experience++;
-                    enemy->setAlive(false);
+                        PlaySound(cutSound);
+                        enemy->setAlive(false);
+                    }
                 }
             }
-            // Cutting sound
-            Sound cut = LoadSound(sound2);
-            SetMusicVolume(music, 0.1f);
-            PlaySound(cut);
         }
-        
-        // DŸwiêk zwiêkszenia szybkoœci poruszania siê
-        if (IsKeyPressed(KEY_LEFT_SHIFT))
-        {
-            Sound superspeed = LoadSound(sound3);
-            SetMusicVolume(music, 0.1f);
-            PlaySound(superspeed);
-        }
+
         if(IsKeyDown(KEY_LEFT_SHIFT))
         {
             player.setSpeed(player.getSprintSpeed());
+            while(!IsSoundPlaying(sprintSound))PlaySound(sprintSound);
         }
-        else
+        else 
+        {
             player.setSpeed(player.getBaseSpeed());
+            if(IsSoundPlaying(sprintSound))StopSound(sprintSound);
+        }
         UnloadGameplayScreen();
     }
-    UnloadSound(game);
+    UnloadSound(gameMusic);
 
     // Saving final experience to file
     std::ofstream outfile;

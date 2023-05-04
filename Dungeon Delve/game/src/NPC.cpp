@@ -1,21 +1,16 @@
 #include "NPC.h"
 
-NPC::NPC(Vector2 pos, Texture2D idle_texture)
+NPC::NPC() {}
+NPC::~NPC() {}
+NPC::NPC(Vector2 pos, Texture2D tex) :
+	Prop(pos,tex)
 {
-    startPostion = pos;
-    worldPosition = pos;
-    texture = idle_texture;
-    idle = idle_texture;
-    width = texture.width;
-    height = texture.height;
+	worldPos = pos;
+	texture = tex;
 }
 
-Vector2 NPC::getScreenPos()
+void NPC::Render(Vector2 knightPos)
 {
-    return screenPosition;
-}
-
-void NPC::interact()
-{
-
+	Vector2 screenPos{ Vector2Subtract(worldPos, knightPos) };
+	DrawTextureEx(texture, screenPos, 0.f, 4.f, WHITE);
 }

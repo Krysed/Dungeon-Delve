@@ -1,18 +1,17 @@
 #pragma once
-#include "BaseCharacter.h"
 
-class NPC : public BaseCharacter
+#include "raylib.h"
+#include "Prop.h"
+#include <string>
+
+class NPC : public Prop
 {
 public:
-	void interact(); //todo
-	NPC(Vector2 pos, Texture2D idle_texture);
-	Vector2 getScreenPos() override;
-	
-	//tick
-
+	NPC();
+	~NPC();
+	NPC(Vector2 pos, Texture2D tex);
+	void Render(Vector2 knightPos);
+	void RenderText();
 private:
-	Vector2 startPostion{};
 
-	int windowWidth{};
-	int windowHeight{};
 };
