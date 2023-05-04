@@ -191,6 +191,7 @@ static void UpdateTransition(void)
             {
                 case LOGO: InitLogoScreen(); break;
                 case TITLE: InitTitleScreen(); break;
+                case OPTIONS: InitOptionsScreen(); break;
                 case GAMEPLAY: InitGameplayScreen(); break;
                 case ENDING: InitEndingScreen(); break;
                 case SCORE: InitScoreScreen(); break;
@@ -252,6 +253,8 @@ static void UpdateDrawFrame(void)
             } break;
             case OPTIONS:
             {
+                bool loaded = false;
+                //InitOptionsScreen();
                 UpdateOptionsScreen();
 
                 //if (FinishOptionsScreen()) TransitionToScreen(TITLE);
@@ -277,9 +280,10 @@ static void UpdateDrawFrame(void)
             } break;
             case SCORE:
             {
+                //InitScoreScreen();
                 UpdateScoreScreen();
 
-                if (FinishScoreScreen() == 1) TransitionToScreen(OPTIONS);
+                if (FinishScoreScreen()) TransitionToScreen(OPTIONS);
                 else if (FinishScoreScreen() == 2)TransitionToScreen(GAMEPLAY);
 
             } break;

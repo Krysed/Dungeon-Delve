@@ -12,6 +12,8 @@ static Texture2D background;
 static float alpha = 0.0f;
 static bool isIncreasing = true;
 char name[10] = "Player";
+bool loadedOptions = false;
+
 
 //----------------------------------------------------------------------------------
 // Options Screen Functions Definition
@@ -23,6 +25,7 @@ void InitOptionsScreen(void)
     // TODO: Initialize OPTIONS screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+    
     image = LoadImage("resources/screens/menu.png");
     ImageResize(&image, 800, 600);
     background = LoadTextureFromImage(image);
@@ -31,9 +34,8 @@ void InitOptionsScreen(void)
 // Options Screen Update logic
 void UpdateOptionsScreen(void)
 {
-    // TODO: Update OPTIONS screen variables here!
-    //Draw background
-    DrawTexture(background, 0, 0, WHITE);
+    DrawTextureEx(background, { 0, 0 }, 0, 1.f, WHITE);
+
     //Draw buttons
     DrawRectangle(290, 200, 220, 50, DARKGRAY);
     DrawText("PLAY GAME", 340, 215, 20, WHITE);

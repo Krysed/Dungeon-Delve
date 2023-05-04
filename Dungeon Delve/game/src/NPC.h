@@ -11,7 +11,6 @@ public:
 	~NPC();
 	NPC(Vector2 pos, Texture2D tex);
 	void Render(Vector2 knightPos);
-	void RenderText();
 private:
 
 };

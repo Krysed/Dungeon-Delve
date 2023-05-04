@@ -15,7 +15,6 @@ static Image image;
 static Texture2D background;
 static float alpha = 0.0f;
 static bool isIncreasing = true;
-
 //----------------------------------------------------------------------------------
 // Options Screen Functions Definition
 //----------------------------------------------------------------------------------
@@ -26,7 +25,8 @@ void InitScoreScreen(void)
     // TODO: Initialize OPTIONS screen variables here!
     framesCounter = 0;
     finishScreen = 0;
-    image = LoadImage("resources/screens/menutwo.png");
+    
+    image = LoadImage("resources/screens/menu.png");
     ImageResize(&image, 800, 600);
     background = LoadTextureFromImage(image);
 }
@@ -34,11 +34,9 @@ void InitScoreScreen(void)
 // Options Screen Update logic
 void UpdateScoreScreen(void)
 {
-}
+    //Draw background
+    DrawTextureEx(background, { 0, 0 }, 0, 1.f, WHITE);
 
-// Options Screen Draw logic
-void DrawScoreScreen(void)
-{
     std::ifstream file("./game/experience.txt");
     if (!file) {
         TraceLog(LOG_WARNING, "Cannot open file");
@@ -63,7 +61,7 @@ void DrawScoreScreen(void)
     // Draw sorted file content on the screen
     int lineCount = 0;
     for (int i = 0; i < lines.size() && lineCount < 10; i++) {
-        DrawText(lines[i].c_str(), 335, 180 + lineCount * 20, 20, BLACK);
+        DrawText(lines[i].c_str(), 335, 180 + lineCount * 20, 20, WHITE);
         lineCount++;
 
         
@@ -112,6 +110,11 @@ void DrawScoreScreen(void)
         // Set finishScreen to the ID of the screen you want to switch to
         finishScreen = 1;
     }
+}
+
+// Options Screen Draw logic
+void DrawScoreScreen(void)
+{
 }
 
 // Options Screen Unload logic
