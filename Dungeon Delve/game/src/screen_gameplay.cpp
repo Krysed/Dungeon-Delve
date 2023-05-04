@@ -26,6 +26,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <time.h>
 #include "src/HealthIncrease.h"
 #include "src/Character.h"
 #include "src/GoldCoin.h"
@@ -54,6 +55,23 @@ void InitGameplayScreen(void)
     framesCounter = 0;
     finishScreen = 0;
     Character::experience = 0;
+
+    // Loading screen
+    int screenWidth = 800;
+    int screenHeight = 600;
+    Rectangle loadBar = { screenWidth / 2 - 100, screenHeight / 2, 0, 20 };
+    int progress = 0;
+
+    while (progress < 100)
+    {
+        progress++;
+        BeginDrawing();
+        ClearBackground(BLACK);
+        DrawText("LOADING...", screenWidth / 2 - 50, screenHeight / 2 - 50, 20, WHITE);
+        DrawRectangleRec(loadBar, WHITE);
+        DrawText(TextFormat("%i%%", progress), screenWidth / 2 - 20, screenHeight / 2 + 20, 20, WHITE);
+        EndDrawing();
+    }
 }
 
 // Gameplay Screen Update logic

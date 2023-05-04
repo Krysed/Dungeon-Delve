@@ -152,3 +152,9 @@
 0 - Player
 0 - Player
 8 - Krysed
+0 - Player
+0 - Player
+0 - Player
+0 - Player
+7 - Player
+0 - Player

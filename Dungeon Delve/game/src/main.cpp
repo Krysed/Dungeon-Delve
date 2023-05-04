@@ -53,15 +53,16 @@ static void DrawTransition(void);           // Draw transition effect (full-scre
 
 static void UpdateDrawFrame(void);          // Update and draw one frame
 
+
 //----------------------------------------------------------------------------------
 // Main entry point
 //----------------------------------------------------------------------------------
 int main(void)
 {
+
     // Initialization
     //---------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "Dungeon Delve");
-
     InitAudioDevice();      // Initialize audio device
 
     // Load global data (assets that must be available in all screens, i.e. font)
@@ -72,6 +73,11 @@ int main(void)
     SetMusicVolume(music, 0.1f);
     SetSoundVolume(fxCoin, 0.1f);
     PlayMusicStream(music);
+
+    // Set window icon
+    Image iconImage = LoadImage("resources/icon.png");
+    SetWindowIcon(iconImage);
+    UnloadImage(iconImage);
 
     // Setup and init first screen
     currentScreen = LOGO;
