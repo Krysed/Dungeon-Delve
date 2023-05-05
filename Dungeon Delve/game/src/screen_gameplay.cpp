@@ -49,6 +49,7 @@ int Character::experience = 0;
 int Character::goldAmount = 0;
 int Character::key = 0;
 
+
 std::string currentMap;
 void InitGameplayScreen(void)
 {
@@ -80,6 +81,9 @@ void UpdateGameplayScreen(void)
     const int windowWidth{ 800 };
     const int windowHeight{ 600 };
     const float mapScale{ 4.0f };
+    Texture2D goldIcon = LoadTexture("resources/HUD/GoldIcon.png");
+    Texture2D expIcon = LoadTexture("resources/HUD/ExpIcon.png");
+    Texture2D keyIcon = LoadTexture("resources/HUD/KeyIcon.png");
 
     int mapVar = 0;
     bool isBuying = false;
@@ -323,20 +327,25 @@ void UpdateGameplayScreen(void)
         {
             //write Player character stats to screen
             std::string playerHealth = "Health: ";
-            std::string playerExperience = "Experience: ";
-            std::string playerGold = "Gold: ";
-            std::string playerKey = "Key: ";
+            std::string playerExperience = "";
+            std::string playerGold = "";
+            std::string playerKey = "";
+            DrawTexture(goldIcon, 30, 10, WHITE);
+            DrawTexture(expIcon, 27, 60, WHITE);
 
             playerHealth.append(std::to_string(player.getHealth()), 0, 5);
             playerExperience.append(std::to_string(Character::experience), 0, 5);
             playerGold.append(std::to_string(Character::goldAmount), 0, 5);
             playerKey.append(std::to_string(Character::key), 0, 5);
 
-            DrawText(playerHealth.c_str(), 55.f, 45.f, 40, RED);
-            DrawText(playerExperience.c_str(), 450.f, 45.f, 40, YELLOW);
-            DrawText(playerGold.c_str(), 450.f, 90.f, 40, YELLOW);
-            if(Character::key > 0) DrawText(playerKey.c_str(), 450.f, 135.f, 40, RED);
-
+            DrawText(playerHealth.c_str(), 545.f, 22.f, 40, RED);
+            DrawText(playerExperience.c_str(), 100.f, 72.f, 40, LIGHTGRAY);
+            DrawText(playerGold.c_str(), 100.f, 22.f, 40, GOLD);
+            if (Character::key > 0)
+            {
+                DrawTexture(keyIcon, 35, 120, WHITE);
+                DrawText(playerKey.c_str(), 100.f, 132.f, 40, RED);
+            }
         }
 
         //checking player-map bounds
