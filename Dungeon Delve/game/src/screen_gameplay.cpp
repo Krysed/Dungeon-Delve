@@ -93,10 +93,10 @@ void UpdateGameplayScreen(void)
     SetSoundVolume(cutSound, 0.1f);
     
     Sound openSound = LoadSound(sound1);
-    SetSoundVolume(openSound, 0.1f);
+    SetSoundVolume(openSound, 0.2f);
     
     Sound sprintSound = LoadSound(sound3);
-    SetSoundVolume(sprintSound, 0.3f);
+    SetSoundVolume(sprintSound, 0.5f);
 
     Texture2D map = LoadTexture(baseMap);
     Vector2 mapPosition{ 0.0f,0.0f };
@@ -149,15 +149,27 @@ void UpdateGameplayScreen(void)
         enemies.push_back(&enemiesArray[i]);
         enemies[i]->setSpeed(3.f);
     }
-
+    
 
     //potion test
-    Potion pot(Vector2{500.f,500.f}, LoadTexture(potionTexture));
+    Potion pot(Vector2{600.f,2200.f}, LoadTexture(potionTexture));
+
     GoldCoin gold(Vector2{ 550.f,500.f }, LoadTexture(coinTexture));
-    Key key(Vector2{ 600.f,500.f }, LoadTexture(keyTexture));
-    HealthIncrease health(Vector2{ 500.f,550.f }, LoadTexture(healthTexture));
-    Stairs stairs(Vector2{ 400.f,500.f }, LoadTexture(stairLockedTexture));
+    GoldCoin gold2(Vector2{ 2000.f,700.f }, LoadTexture(coinTexture));
+    GoldCoin gold3(Vector2{ 800.f,2200.f }, LoadTexture(coinTexture));
+    GoldCoin gold4(Vector2{ 600.f,1000.f }, LoadTexture(coinTexture));
+    GoldCoin gold5(Vector2{ 600.f,2800.f }, LoadTexture(coinTexture));
+    
+    Key key(Vector2{ 800.f,1200.f }, LoadTexture(keyTexture));
+    Key key2(Vector2{ 2400.f,800.f }, LoadTexture(keyTexture));
+    
+    HealthIncrease health(Vector2{ 1000.f,550.f }, LoadTexture(healthTexture));
+    
+    Stairs stairs(Vector2{ 1400.f,850.f }, LoadTexture(stairLockedTexture));
+    Stairs stairs2(Vector2{ 2400.f,2000.f }, LoadTexture(stairLockedTexture));
+    
     NPC npc(Vector2{ 400.f,550.f }, LoadTexture(npcTexture));
+
 
     for (auto enemy : enemies)
     {
@@ -169,7 +181,7 @@ void UpdateGameplayScreen(void)
         {
             finishScreen = 1;
         }
-        // Fullscreen
+        //Fullscreen
         if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
         {
             ToggleFullscreen();
@@ -183,6 +195,7 @@ void UpdateGameplayScreen(void)
             PlaySound(gameMusic);
         }
 
+        //stairs
         if (IsKeyPressed(KEY_E) && CheckCollisionRecs(stairs.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
         {
             if(mapVar == 0){
@@ -208,10 +221,43 @@ void UpdateGameplayScreen(void)
                     mapVar = 0;
                 }
             }
-            if (Character::key > 0) {
+            if (Character::key > 0 && stairs.getConsumed() == false) {
                 Character::key--;
                 stairs.setTexture(LoadTexture(stairTexture));
                 stairs.setConsumed(true);
+
+            }
+        }
+
+        if (IsKeyPressed(KEY_E) && CheckCollisionRecs(stairs2.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
+        {
+            if(mapVar == 0){
+                if (stairs2.getConsumed()) {
+                    map = LoadTexture(dungeonMap);
+                    currentMap = dungeonMap;
+                    currentProps = dungeonProps;
+                    mapVar = 1;
+                    for (auto& prop : currentProps)prop.setScale(5.3f);
+                    for (auto& enemy : enemies) {
+                        enemy->setWorldPos(enemy->getStartPosition().x,enemy->getStartPosition().y);
+                        enemy->setAlive(true);
+                    }
+                    // Enter dungeon sound
+                    PlaySound(openSound);
+                }
+            }
+            else if (mapVar == 1) {
+                if (stairs2.getConsumed()) {
+                    map = LoadTexture(baseMap);
+                    currentMap = baseMap;
+                    currentProps = props;
+                    mapVar = 0;
+                }
+            }
+            if (Character::key > 0 && stairs2.getConsumed() == false) {
+                Character::key--;
+                stairs2.setTexture(LoadTexture(stairTexture));
+                stairs2.setConsumed(true);
 
             }
         }
@@ -220,6 +266,7 @@ void UpdateGameplayScreen(void)
         DrawTextureEx(map, mapPosition, 0.0f, mapScale, WHITE);
         
         stairs.Render(player.getWorldPos());
+        stairs2.Render(player.getWorldPos());
         player.tick(GetFrameTime());
 
         npc.Render(player.getWorldPos());
@@ -248,9 +295,15 @@ void UpdateGameplayScreen(void)
                 Character::goldAmount -= 10;
             }
         }
+
         if(!pot.getConsumed())pot.Render(player.getWorldPos());
         if (!gold.getConsumed())gold.Render(player.getWorldPos());
+        if (!gold2.getConsumed())gold2.Render(player.getWorldPos());
+        if (!gold3.getConsumed())gold3.Render(player.getWorldPos());
+        if (!gold4.getConsumed())gold4.Render(player.getWorldPos());
+        if (!gold5.getConsumed())gold5.Render(player.getWorldPos());
         if (!key.getConsumed())key.Render(player.getWorldPos());
+        if (!key2.getConsumed())key2.Render(player.getWorldPos());
         if (!health.getConsumed())health.Render(player.getWorldPos());
 
         for (auto prop : currentProps)
@@ -299,14 +352,6 @@ void UpdateGameplayScreen(void)
         //checking player-prop collision
         for (auto prop : currentProps)
         {
-            //debug lines
-            /*DrawRectangleLines(
-                prop.getCollisionRec(player.getWorldPos()).x,
-                prop.getCollisionRec(player.getWorldPos()).y,
-                prop.getCollisionRec(player.getWorldPos()).width,
-                prop.getCollisionRec(player.getWorldPos()).height,
-                RED
-            );*/
             if (CheckCollisionRecs(prop.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
             {
                 player.undoMovement();
@@ -315,13 +360,19 @@ void UpdateGameplayScreen(void)
             {
                 pot.interact(&player);
             }
-            if (CheckCollisionRecs(gold.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
-            {
-                gold.interact(&player);
-            }
+            
+            if (CheckCollisionRecs(gold.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))gold.interact(&player);
+            if (CheckCollisionRecs(gold2.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))gold2.interact(&player);
+            if (CheckCollisionRecs(gold3.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))gold3.interact(&player);
+            if (CheckCollisionRecs(gold4.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))gold4.interact(&player);
+
             if (CheckCollisionRecs(key.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
             {
                 key.interact(&player);
+            }            
+            if (CheckCollisionRecs(key2.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
+            {
+                key2.interact(&player);
             }
             if (CheckCollisionRecs(health.getCollisionRec(player.getWorldPos()), player.getCollisionRec()))
             {

@@ -14,7 +14,7 @@ const char* npcTexture = "resources/characters/npc.png";
 //Prop textures
 const char* rockTexture = "resources/props/Rock.png";
 const char* signTexture = "resources/props/sign.png";
-const char* bushTexture = "resources/props/Bock.png";
+const char* bushTexture = "resources/props/Bush.png";
 const char* logTexture = "resources/props/Log.png";
 const char* wall1Texture = "resources/props/wall_1.png";
 const char* wall2Texture = "resources/props/wall_2.png";
@@ -33,7 +33,7 @@ const char* stairLockedTexture= "resources/props/door_anim_opening_f0.png";
 
 //maps
 const char* baseMap = "resources/maps/MapSummer.png";
-const char* dungeonMap = "resources/maps/test_map2.png";
+const char* dungeonMap = "resources/maps/UndergroundMap.png";
 
 //sound
 const char* gameplayMusic = "resources/game1.wav";

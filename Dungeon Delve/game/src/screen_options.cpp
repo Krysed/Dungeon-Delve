@@ -12,7 +12,6 @@ static Texture2D background;
 static float alpha = 0.0f;
 static bool isIncreasing = true;
 char name[10] = "Player";
-bool loadedOptions = false;
 
 
 //----------------------------------------------------------------------------------

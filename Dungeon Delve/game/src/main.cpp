@@ -259,8 +259,6 @@ static void UpdateDrawFrame(void)
             } break;
             case OPTIONS:
             {
-                bool loaded = false;
-                //InitOptionsScreen();
                 UpdateOptionsScreen();
 
                 //if (FinishOptionsScreen()) TransitionToScreen(TITLE);
@@ -286,7 +284,6 @@ static void UpdateDrawFrame(void)
             } break;
             case SCORE:
             {
-                //InitScoreScreen();
                 UpdateScoreScreen();
 
                 if (FinishScoreScreen()) TransitionToScreen(OPTIONS);
