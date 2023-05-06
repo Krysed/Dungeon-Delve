@@ -1,1 +1,12 @@
-﻿  raylib.vcxproj -> C:\Users\Hubert\Desktop\Projekt\Dungeon-Delve\Dungeon Delve\_bin\Debug\raylib.lib
+﻿  raudio.c
+C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\raylib-master\src\external\jar_xm.h(242,1): warning C4005: "DEBUG": ponowna definicja makra
+C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\raylib-master\src\external\jar_xm.h(242,1): message : Element „DEBUG“ został wcześniej zadeklarowany w wierszu polecenia
+  rcore.c
+  rglfw.c
+  rmodels.c
+  rshapes.c
+  rtext.c
+  rtextures.c
+  utils.c
+  Generowanie kodu...
+  raylib.vcxproj -> C:\Dokumenty\Dane\Informatyka\Semestr 4\Inżynieria oprogramowania\Projekt\Dungeon-Delve\Dungeon Delve\_bin\Debug\raylib.lib

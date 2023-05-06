@@ -417,6 +417,14 @@ void UpdateGameplayScreen(void)
             }
         }
 
+        //Zegar do kontrolowania czasu spêdzanego przy tej wci¹gaj¹cej grze
+        time_t currentTime;
+        char buffer[80];
+        currentTime = time(NULL);
+        strftime(buffer, 80, "%H:%M:%S", localtime(&currentTime));
+        BeginDrawing();
+        DrawText(buffer, 10, 10, 20, WHITE);
+
         if(IsKeyDown(KEY_LEFT_SHIFT))
         {
             player.setSpeed(player.getSprintSpeed());
