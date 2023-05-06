@@ -48,9 +48,10 @@ static int finishScreen = 0;
 int Character::experience = 0;
 int Character::goldAmount = 0;
 int Character::key = 0;
-
-
+int clickCount = 0;
 std::string currentMap;
+double startTime = GetTime();
+
 void InitGameplayScreen(void)
 {
     framesCounter = 0;
@@ -423,7 +424,7 @@ void UpdateGameplayScreen(void)
         currentTime = time(NULL);
         strftime(buffer, 80, "%H:%M:%S", localtime(&currentTime));
         BeginDrawing();
-        DrawText(buffer, 10, 10, 20, WHITE);
+        DrawText(buffer, 5, 5, 20, WHITE);
 
         //Licznik fps pomagaj¹cy zdecydowaæ czy czas na wymianê gpu
         int currentFPS;
@@ -431,7 +432,22 @@ void UpdateGameplayScreen(void)
         currentFPS = GetFPS();
         fpsString = std::to_string(currentFPS);
         BeginDrawing();
-        DrawText(fpsString.c_str(), 10, 30, 20, WHITE);
+        DrawText(fpsString.c_str(), 5, 30, 20, WHITE);
+
+        //Licznik ciosów mieczem
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+        {
+            clickCount=clickCount+1;
+        }
+        std::string clickString = "Ciosy mieczem: " + std::to_string(clickCount);
+        DrawText(clickString.c_str(), 140, 5, 20, WHITE);
+
+        //Licznik czasu spêdzonego w grze
+        double elapsedTime = GetTime() - startTime;
+        int minutes = (int)(elapsedTime / 60.0);
+        int seconds = (int)(elapsedTime) % 60;
+        std::string timeString = "Czas w grze: " + std::to_string(minutes) + ":" + std::to_string(seconds);
+        DrawText(timeString.c_str(), 140, 30, 20, WHITE);
 
         if(IsKeyDown(KEY_LEFT_SHIFT))
         {
