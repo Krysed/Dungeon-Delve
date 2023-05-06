@@ -422,21 +422,28 @@ void UpdateGameplayScreen(void)
             }
         }
 
-        //Zegar do kontrolowania czasu spêdzanego przy tej wci¹gaj¹cej grze
-        time_t currentTime;
-        char buffer[80];
-        currentTime = time(NULL);
-        strftime(buffer, 80, "%H:%M:%S", localtime(&currentTime));
-        BeginDrawing();
-        DrawText(buffer, 5, 5, 20, WHITE);
-
         //Licznik fps pomagaj¹cy zdecydowaæ czy czas na wymianê gpu
         int currentFPS;
         std::string fpsString;
         currentFPS = GetFPS();
-        fpsString = std::to_string(currentFPS);
+        fpsString = "FPS: " + std::to_string(currentFPS);
         BeginDrawing();
-        DrawText(fpsString.c_str(), 5, 30, 20, WHITE);
+        DrawText(fpsString.c_str(), 20, 575, 20, WHITE);
+
+        //Zegar do kontrolowania czasu spêdzanego przy tej wci¹gaj¹cej grze
+        time_t currentTime;
+        char buffer[80];
+        currentTime = time(NULL);
+        strftime(buffer, 80, "Godzina: %H:%M:%S", localtime(&currentTime));
+        BeginDrawing();
+        DrawText(buffer, 160, 575, 20, WHITE);
+
+        //Licznik czasu spêdzonego w grze
+        double elapsedTime = GetTime() - startTime;
+        int minutes = (int)(elapsedTime / 60.0);
+        int seconds = (int)(elapsedTime) % 60;
+        std::string timeString = "Czas w grze: " + std::to_string(minutes) + ":" + std::to_string(seconds);
+        DrawText(timeString.c_str(), 380, 575, 20, WHITE);
 
         //Licznik ciosów mieczem
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
@@ -444,14 +451,7 @@ void UpdateGameplayScreen(void)
             clickCount=clickCount+1;
         }
         std::string clickString = "Ciosy mieczem: " + std::to_string(clickCount);
-        DrawText(clickString.c_str(), 140, 5, 20, WHITE);
-
-        //Licznik czasu spêdzonego w grze
-        double elapsedTime = GetTime() - startTime;
-        int minutes = (int)(elapsedTime / 60.0);
-        int seconds = (int)(elapsedTime) % 60;
-        std::string timeString = "Czas w grze: " + std::to_string(minutes) + ":" + std::to_string(seconds);
-        DrawText(timeString.c_str(), 140, 30, 20, WHITE);
+        DrawText(clickString.c_str(), 617, 575, 20, WHITE);
 
         if(IsKeyDown(KEY_LEFT_SHIFT))
         {
