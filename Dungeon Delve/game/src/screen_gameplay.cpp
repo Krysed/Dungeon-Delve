@@ -425,6 +425,14 @@ void UpdateGameplayScreen(void)
         BeginDrawing();
         DrawText(buffer, 10, 10, 20, WHITE);
 
+        //Licznik fps pomagaj¹cy zdecydowaæ czy czas na wymianê gpu
+        int currentFPS;
+        std::string fpsString;
+        currentFPS = GetFPS();
+        fpsString = std::to_string(currentFPS);
+        BeginDrawing();
+        DrawText(fpsString.c_str(), 10, 30, 20, WHITE);
+
         if(IsKeyDown(KEY_LEFT_SHIFT))
         {
             player.setSpeed(player.getSprintSpeed());
