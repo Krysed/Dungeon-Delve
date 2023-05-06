@@ -74,6 +74,12 @@ void InitLogoScreen(void)
 // Logo Screen Update logic
 void UpdateLogoScreen(void)
 {
+    //Fullscreen
+    if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
+    {
+        ToggleFullscreen();
+    }
+
     if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
     {
         finishScreen = 1;

@@ -38,7 +38,6 @@ static bool isIncreasing = true;
 // Ending Screen Initialization logic
 void InitEndingScreen(void)
 {
-    // TODO: Initialize ENDING screen variables here!
     framesCounter = 0;
     finishScreen = 0;
     image = LoadImage("resources/screens/menu.png");
@@ -48,9 +47,15 @@ void InitEndingScreen(void)
 // Ending Screen Update logic
 void UpdateEndingScreen(void)
 {
-    // TODO: Update ENDING screen variables here!
+    //Fullscreen
+    if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
+    {
+        ToggleFullscreen();
+    }
+
     //Draw background
     DrawTexture(background, 0, 0, WHITE);
+    
     //Draw buttons
     DrawRectangle(290, 200, 220, 50, DARKGRAY);
     DrawText("RESTART", 352, 215, 20, WHITE);
@@ -67,7 +72,7 @@ void UpdateEndingScreen(void)
     Rectangle buttonRestart = { 290, 185, 220, 50 };
     Rectangle buttonMenu = { 290, 255, 220, 50 };
     Rectangle buttonExit = { 290, 325, 220, 50 };
-    //if (CheckCollisionPointRec(GetMousePosition(), buttonRestart) || CheckCollisionPointRec(GetMousePosition(), buttonMenu) || CheckCollisionPointRec(GetMousePosition(), buttonExit))
+
     if (CheckCollisionPointRec(GetMousePosition(), buttonRestart))
     {
         //Change cursor on button
@@ -174,10 +179,6 @@ void UpdateEndingScreen(void)
 void DrawEndingScreen(void)
 {
     // TODO: Draw ENDING screen here!
-
-    // Draw the buttons
-
-
 }
 
 // Ending Screen Unload logic

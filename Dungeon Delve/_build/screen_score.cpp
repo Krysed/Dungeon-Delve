@@ -25,7 +25,6 @@ void InitScoreScreen(void)
     // TODO: Initialize OPTIONS screen variables here!
     framesCounter = 0;
     finishScreen = 0;
-    
     image = LoadImage("resources/screens/menu.png");
     ImageResize(&image, 800, 600);
     background = LoadTextureFromImage(image);
@@ -34,6 +33,12 @@ void InitScoreScreen(void)
 // Options Screen Update logic
 void UpdateScoreScreen(void)
 {
+    //Fullscreen
+    if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
+    {
+        ToggleFullscreen();
+    }
+
     //Draw background
     DrawTextureEx(background, { 0, 0 }, 0, 1.f, WHITE);
 
@@ -63,8 +68,6 @@ void UpdateScoreScreen(void)
     for (int i = 0; i < lines.size() && lineCount < 10; i++) {
         DrawText(lines[i].c_str(), 335, 180 + lineCount * 20, 20, WHITE);
         lineCount++;
-
-        
     }
 
     DrawRectangle(240, 130, 326, 30, DARKGRAY);

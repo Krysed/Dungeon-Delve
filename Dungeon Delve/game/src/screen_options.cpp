@@ -13,7 +13,6 @@ static float alpha = 0.0f;
 static bool isIncreasing = true;
 char name[10] = "Player";
 
-
 //----------------------------------------------------------------------------------
 // Options Screen Functions Definition
 //----------------------------------------------------------------------------------
@@ -21,10 +20,8 @@ char name[10] = "Player";
 // Options Screen Initialization logic
 void InitOptionsScreen(void)
 {
-    // TODO: Initialize OPTIONS screen variables here!
     framesCounter = 0;
     finishScreen = 0;
-    
     image = LoadImage("resources/screens/menu.png");
     ImageResize(&image, 800, 600);
     background = LoadTextureFromImage(image);
@@ -33,6 +30,13 @@ void InitOptionsScreen(void)
 // Options Screen Update logic
 void UpdateOptionsScreen(void)
 {
+    //Fullscreen
+    if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
+    {
+        ToggleFullscreen();
+    }
+
+    //Draw background
     DrawTextureEx(background, { 0, 0 }, 0, 1.f, WHITE);
 
     //Draw buttons
@@ -44,6 +48,7 @@ void UpdateOptionsScreen(void)
 
     DrawRectangle(290, 340, 220, 50, DARKGRAY);
     DrawText("EXIT", 375, 355, 20, WHITE);
+    
     //----------------------------------------------------------------------------------
     // Logic of button
     //----------------------------------------------------------------------------------
@@ -51,7 +56,7 @@ void UpdateOptionsScreen(void)
     Rectangle buttonPlay = { 290, 185, 220, 50 };
     Rectangle buttonScore = { 290, 255, 220, 50 };
     Rectangle buttonExit = { 290, 325, 220, 50 };
-    //if (CheckCollisionPointRec(GetMousePosition(), buttonRestart) || CheckCollisionPointRec(GetMousePosition(), buttonMenu) || CheckCollisionPointRec(GetMousePosition(), buttonExit))
+
     if (CheckCollisionPointRec(GetMousePosition(), buttonPlay))
     {
         //Change cursor on button
@@ -155,7 +160,8 @@ void UpdateOptionsScreen(void)
     //------------------------------------------------------------------------
     // NAME FIELD
     //------------------------------------------------------------------------
-        //Draw name field
+     
+    //Draw name field
     DrawText("Enter your name:", 280, 100, 20, WHITE);
     DrawRectangle(280, 130, 240, 50, DARKGRAY);
     DrawRectangleLines(280, 130, 240, 50, WHITE);

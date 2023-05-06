@@ -101,5 +101,4 @@ int FinishScoreScreen(void);
 #ifdef __cplusplus
 }
 #endif
-
 #endif // SCREENS_H

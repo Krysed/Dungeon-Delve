@@ -32,7 +32,6 @@ static Texture2D background;
 static float alpha = 0.0f;
 static bool isIncreasing = true;
 
-
 //--------------------------------------------------------------------------------------------------
 // Title Screen Functions Definition
 //--------------------------------------------------------------------------------------------------
@@ -52,6 +51,11 @@ void InitTitleScreen(void)
 // Title Screen Update logic
 void UpdateTitleScreen(void)
 {
+    //Fullscreen
+    if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER))
+    {
+        ToggleFullscreen();
+    }
     // TODO: Update TITLE screen variables here!
 
     // Press enter or tap to change to GAMEPLAY screen

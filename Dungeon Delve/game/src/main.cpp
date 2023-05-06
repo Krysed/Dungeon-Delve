@@ -46,11 +46,9 @@ static GameScreen transToScreen = UNKNOWN;
 // Local Functions Declaration
 //----------------------------------------------------------------------------------
 static void ChangeToScreen(int screen);     // Change to screen, no transition effect
-
 static void TransitionToScreen(int screen); // Request transition to next screen
 static void UpdateTransition(void);         // Update transition effect
 static void DrawTransition(void);           // Draw transition effect (full-screen rectangle)
-
 static void UpdateDrawFrame(void);          // Update and draw one frame
 
 
@@ -95,7 +93,6 @@ int main(void)
 
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-
         UpdateDrawFrame();
     }
 #endif
@@ -117,9 +114,7 @@ int main(void)
     UnloadFont(font);
     UnloadMusicStream(music);
     UnloadSound(fxCoin);
-
     CloseAudioDevice();     // Close audio context
-
     CloseWindow();          // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
@@ -254,14 +249,12 @@ static void UpdateDrawFrame(void)
                 UpdateTitleScreen();
 
                 if (FinishTitleScreen()) TransitionToScreen(OPTIONS);
-                //else if (FinishTitleScreen() == 2) TransitionToScreen(GAMEPLAY);
 
             } break;
             case OPTIONS:
             {
                 UpdateOptionsScreen();
 
-                //if (FinishOptionsScreen()) TransitionToScreen(TITLE);
                 if (FinishOptionsScreen() == 1) TransitionToScreen(GAMEPLAY);
                 else if (FinishOptionsScreen() == 2) TransitionToScreen(SCORE);
 
@@ -271,7 +264,6 @@ static void UpdateDrawFrame(void)
                 UpdateGameplayScreen();
 
                 if (FinishGameplayScreen() == 1) TransitionToScreen(ENDING);
-                //else if (FinishGameplayScreen() == 2) TransitionToScreen(TITLE);
 
             } break;
             case ENDING:
