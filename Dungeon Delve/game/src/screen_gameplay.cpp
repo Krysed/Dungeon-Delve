@@ -85,6 +85,7 @@ void UpdateGameplayScreen(void)
     Texture2D goldIcon = LoadTexture("resources/HUD/GoldIcon.png");
     Texture2D expIcon = LoadTexture("resources/HUD/ExpIcon.png");
     Texture2D keyIcon = LoadTexture("resources/HUD/KeyIcon.png");
+    Texture2D heartIcon = LoadTexture("resources/HUD/HeartIcon.png");
 
     int mapVar = 0;
     bool isBuying = false;
@@ -318,8 +319,10 @@ void UpdateGameplayScreen(void)
 
         if (!player.getAlive()) 
         {
-            DrawText("Game Over", 300.f, 80.f, 40, RED);
-            DrawText(TextFormat("Final Experience: %d", Character::experience), 210.f, 250.f, 40, YELLOW);
+            DrawRectangle(170, 120, 465, 370, BLACK);
+            DrawRectangle(180, 130, 445, 350, GRAY);
+            DrawText("Game Over", 300.f, 250.f, 40, RED);
+            DrawText(TextFormat("Final Experience: %d", Character::experience), 210.f, 300.f, 40, LIGHTGRAY);
             EndDrawing();
             continue;
         }
@@ -327,25 +330,26 @@ void UpdateGameplayScreen(void)
         else
         {
             //write Player character stats to screen
-            std::string playerHealth = "Health: ";
+            std::string playerHealth = "";
             std::string playerExperience = "";
             std::string playerGold = "";
             std::string playerKey = "";
             DrawTexture(goldIcon, 30, 10, WHITE);
             DrawTexture(expIcon, 27, 60, WHITE);
+            DrawTexture(heartIcon, 640, 10, WHITE);
 
             playerHealth.append(std::to_string(player.getHealth()), 0, 5);
             playerExperience.append(std::to_string(Character::experience), 0, 5);
             playerGold.append(std::to_string(Character::goldAmount), 0, 5);
             playerKey.append(std::to_string(Character::key), 0, 5);
 
-            DrawText(playerHealth.c_str(), 545.f, 22.f, 40, RED);
+            DrawText(playerHealth.c_str(), 700.f, 22.f, 40, RED);
             DrawText(playerExperience.c_str(), 100.f, 72.f, 40, LIGHTGRAY);
             DrawText(playerGold.c_str(), 100.f, 22.f, 40, GOLD);
             if (Character::key > 0)
             {
-                DrawTexture(keyIcon, 35, 120, WHITE);
-                DrawText(playerKey.c_str(), 100.f, 132.f, 40, RED);
+                DrawTexture(keyIcon, 635, 72, WHITE);
+                DrawText(playerKey.c_str(), 700.f, 82.f, 40, RED);
             }
         }
 
