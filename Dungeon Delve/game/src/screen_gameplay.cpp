@@ -51,6 +51,8 @@ int Character::key = 0;
 int clickCount = 0;
 std::string currentMap;
 double startTime = GetTime();
+static float alpha = 0.0f;
+static bool isIncreasing = true;
 
 void InitGameplayScreen(void)
 {
@@ -323,6 +325,28 @@ void UpdateGameplayScreen(void)
             DrawRectangle(180, 130, 445, 350, GRAY);
             DrawText("Game Over", 300.f, 250.f, 40, RED);
             DrawText(TextFormat("Final Experience: %d", Character::experience), 210.f, 300.f, 40, LIGHTGRAY);
+
+            if (isIncreasing)
+            {
+                alpha += 0.02f;
+                if (alpha > 1.0f)
+                {
+                    alpha = 1.0f;
+                    isIncreasing = false;
+                }
+            }
+            else
+            {
+                alpha -= 0.02f;
+                if (alpha < 0.0f)
+                {
+                    alpha = 0.0f;
+                    isIncreasing = true;
+                }
+            }
+            DrawText("Press ESC to continue", 280.f, 410.f, 20, WHITE);
+            Color rectColor = { 130, 130, 130, (unsigned char)(alpha * 255) };
+            DrawRectangle(180, 400, 445, 50, rectColor);
             EndDrawing();
             continue;
         }
@@ -336,14 +360,14 @@ void UpdateGameplayScreen(void)
             std::string playerKey = "";
             DrawTexture(goldIcon, 30, 10, WHITE);
             DrawTexture(expIcon, 27, 60, WHITE);
-            DrawTexture(heartIcon, 640, 10, WHITE);
+            DrawTexture(heartIcon, 615, 10, WHITE);
 
             playerHealth.append(std::to_string(player.getHealth()), 0, 5);
             playerExperience.append(std::to_string(Character::experience), 0, 5);
             playerGold.append(std::to_string(Character::goldAmount), 0, 5);
             playerKey.append(std::to_string(Character::key), 0, 5);
 
-            DrawText(playerHealth.c_str(), 700.f, 22.f, 40, RED);
+            DrawText(playerHealth.c_str(), 675.f, 22.f, 40, RED);
             DrawText(playerExperience.c_str(), 100.f, 72.f, 40, LIGHTGRAY);
             DrawText(playerGold.c_str(), 100.f, 22.f, 40, GOLD);
             if (Character::key > 0)
