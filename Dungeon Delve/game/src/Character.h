@@ -18,6 +18,7 @@ public:
 	static int experience;
 	static int goldAmount;
 	static int key;
+
 	Character(int windowWidth, int windowHeight);
 
 	virtual void tick(float deltaTime) override;

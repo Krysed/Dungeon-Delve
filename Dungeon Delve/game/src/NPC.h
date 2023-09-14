@@ -8,8 +8,9 @@ class NPC : public Prop
 {
 public:
 	NPC();
-	~NPC();
 	NPC(Vector2 pos, Texture2D tex);
+	~NPC();
+
 	void Render(Vector2 knightPos);
 private:
 

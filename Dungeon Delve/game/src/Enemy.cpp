@@ -14,11 +14,11 @@ Enemy::Enemy(Vector2 pos, Texture2D idle_texture, Texture2D run_texture)
 	height = texture.height;
     speed = 1.5f;
 }
+
 void Enemy::setTarget(Character* character)
 {
     target = character;
 }
-
 
 void Enemy::tick(float deltaTime, Character* character)
 {

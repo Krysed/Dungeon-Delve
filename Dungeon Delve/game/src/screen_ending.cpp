@@ -35,6 +35,7 @@ static bool isIncreasing = true;
 // Ending Screen Functions Definition
 //--------------------------------------------------------------------------------------------------
 
+
 // Ending Screen Initialization logic
 void InitEndingScreen(void)
 {
@@ -44,6 +45,8 @@ void InitEndingScreen(void)
     ImageResize(&image, 800, 600);
     background = LoadTextureFromImage(image);
 }
+
+
 // Ending Screen Update logic
 void UpdateEndingScreen(void)
 {

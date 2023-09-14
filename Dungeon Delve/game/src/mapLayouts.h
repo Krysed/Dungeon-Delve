@@ -1,7 +1,11 @@
 #pragma once
+
 #include <string>
+
+
 const int numOfProps = 35;
 const int numOfEnemies = 20;
+
 std::string mapLayout[numOfProps]{
 	"  x  xx                            ",
 	"                                   ",
@@ -39,6 +43,7 @@ std::string mapLayout[numOfProps]{
 	"                                   ",
 	"                                   "
 };
+
 std::string mapDungeonLayout[numOfProps]{
 	"                                   ",
 	"                                   ",

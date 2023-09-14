@@ -9,7 +9,6 @@ Vector2 BaseCharacter::getWorldPos()
     return worldPosition;
 }
 
-
 void BaseCharacter::undoMovement()
 {
     worldPosition = worldPositionLastFrame;
@@ -50,8 +49,4 @@ void BaseCharacter::tick(float deltaTime)
         texture = idle;
     }
     velocity = {};
-    ////drawing character
-    //Rectangle source{ frame * width / 6.f,0.f,rightLeft * width / 6.f,height };
-    //Rectangle destination{ getScreenPos().x,getScreenPos().y,4.0f * width / 6.f,4.0f * height };
-    //DrawTexturePro(texture, source, destination, Vector2{}, 0.f, WHITE);
 }

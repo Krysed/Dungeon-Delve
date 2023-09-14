@@ -11,6 +11,7 @@ private:
 public:
     Potion(Vector2 pos, Texture2D tex);
     ~Potion();
+
     virtual void interact(Character* player)override;
 };
 

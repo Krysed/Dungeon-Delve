@@ -1,6 +1,5 @@
 #include "src/Character.h"
 
-
 Character::Character(int windowWidth, int windowHeight):
     windowWidth(windowWidth),windowHeight(windowHeight)
 {
@@ -68,21 +67,14 @@ void Character::tick(float deltaTime)
     Rectangle source{ 0.f,0.f,static_cast<float>(weapon.width) * rightLeft, static_cast<float>(weapon.height) };
     Rectangle dest{ getScreenPos().x + offset.x ,getScreenPos().y + offset.y, weapon.width * scale,weapon.height * scale };
     DrawTexturePro(weapon, source, dest, origin, rotation, WHITE);
-
-    //weapon Collision
-    //DrawRectangleLines(
-    //    weaponCollisionRec.x,
-    //    weaponCollisionRec.y,
-    //    weaponCollisionRec.width,
-    //    weaponCollisionRec.height,
-    //    RED
-    //);
 }
+
 void Character::heal(float amount)
 {
     if(health < maxHealth) health += amount;
     if (health > maxHealth) health = maxHealth;
 }
+
 void Character::takeDamage(float damage)
 {
     health -= damage;

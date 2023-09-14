@@ -6,6 +6,7 @@ class GoldCoin : public Item
 private:
 	Character* player;
 	int goldAmount = 5;
+
 public:
 	GoldCoin(Vector2 pos, Texture2D texture);
 	~GoldCoin();

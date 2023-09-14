@@ -9,7 +9,6 @@ public:
 	void undoMovement();
 	virtual void tick(float deltaTime);
 
-	//getters
 	virtual Vector2 getScreenPos() = 0;
 	Vector2 getWorldPos();
 	Rectangle getCollisionRec();
@@ -18,7 +17,6 @@ public:
 	float getBaseSpeed() const { return baseSpeed; }
 	float getSpeed() const { return speed; }
 	
-	//setters
 	void setAlive(bool isAlive) { alive = isAlive; }
 	void setSpeed(float spd) { speed = spd; }
 protected:
@@ -30,7 +28,6 @@ protected:
 	Vector2 worldPositionLastFrame{};
 	Vector2 velocity{};
 
-	//vars
 	float rightLeft{ 1.f };
 	float runningTime{};
 	float speed{ 4.f };

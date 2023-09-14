@@ -84,10 +84,6 @@ void UpdateGameplayScreen(void)
     const int windowWidth{ 800 };
     const int windowHeight{ 600 };
     const float mapScale{ 4.0f };
-    Texture2D goldIcon = LoadTexture("resources/HUD/GoldIcon.png");
-    Texture2D expIcon = LoadTexture("resources/HUD/ExpIcon.png");
-    Texture2D keyIcon = LoadTexture("resources/HUD/KeyIcon.png");
-    Texture2D heartIcon = LoadTexture("resources/HUD/HeartIcon.png");
 
     int mapVar = 0;
     bool isBuying = false;
@@ -140,6 +136,7 @@ void UpdateGameplayScreen(void)
     }
 
     std::vector<Prop>currentProps = props;
+
     //Enemies
     std::vector<Enemy> enemiesArray;
     for (int i = 0; i < numOfProps; i++)
@@ -152,14 +149,13 @@ void UpdateGameplayScreen(void)
             else if (mapLayoutEnemies[i][j] == 's')enemiesArray.push_back(Enemy{ Vector2{float(j) * 85,float(i) * 85}, LoadTexture(skeletonIdleTexture),LoadTexture(skeletonRunTexture) });
         }
     }
+
     std::vector<Enemy*> enemies;
     for (int i = 0; i < enemiesArray.size(); i++) {
         enemies.push_back(&enemiesArray[i]);
         enemies[i]->setSpeed(3.f);
     }
-    
 
-    //potion test
     Potion pot(Vector2{600.f,2200.f}, LoadTexture(potionTexture));
 
     GoldCoin gold(Vector2{ 550.f,500.f }, LoadTexture(coinTexture));
@@ -250,6 +246,7 @@ void UpdateGameplayScreen(void)
                         enemy->setWorldPos(enemy->getStartPosition().x,enemy->getStartPosition().y);
                         enemy->setAlive(true);
                     }
+
                     // Enter dungeon sound
                     PlaySound(openSound);
                 }
@@ -270,6 +267,7 @@ void UpdateGameplayScreen(void)
             }
         }
         mapPosition = Vector2Scale(player.getWorldPos(), -1.f);
+
         //Drawing map
         DrawTextureEx(map, mapPosition, 0.0f, mapScale, WHITE);
         
@@ -354,26 +352,24 @@ void UpdateGameplayScreen(void)
         else
         {
             //write Player character stats to screen
-            std::string playerHealth = "";
-            std::string playerExperience = "";
-            std::string playerGold = "";
-            std::string playerKey = "";
-            DrawTexture(goldIcon, 30, 10, WHITE);
-            DrawTexture(expIcon, 27, 60, WHITE);
-            DrawTexture(heartIcon, 615, 10, WHITE);
+            std::string playerHealth = "Health:";
+            std::string playerExperience = "Experience:";
+            std::string playerGold = "Gold:";
+            std::string playerKey = "Keys:";
+
+
 
             playerHealth.append(std::to_string(player.getHealth()), 0, 5);
             playerExperience.append(std::to_string(Character::experience), 0, 5);
             playerGold.append(std::to_string(Character::goldAmount), 0, 5);
             playerKey.append(std::to_string(Character::key), 0, 5);
 
-            DrawText(playerHealth.c_str(), 675.f, 22.f, 40, RED);
+            DrawText(playerHealth.c_str(), 500, 22.f, 40, RED);
             DrawText(playerExperience.c_str(), 100.f, 72.f, 40, LIGHTGRAY);
             DrawText(playerGold.c_str(), 100.f, 22.f, 40, GOLD);
             if (Character::key > 0)
             {
-                DrawTexture(keyIcon, 635, 72, WHITE);
-                DrawText(playerKey.c_str(), 700.f, 82.f, 40, RED);
+                DrawText(playerKey.c_str(), 550.f, 82.f, 40, LIGHTGRAY);
             }
         }
 
@@ -421,14 +417,6 @@ void UpdateGameplayScreen(void)
         for (auto enemy : enemies)
         {
             enemy->tick(GetFrameTime(),&player);
-            //debug lines
-            //DrawRectangleLines(
-            //    enemy->getCollisionRec().x,
-            //    enemy->getCollisionRec().y,
-            //    enemy->getCollisionRec().width,
-            //    enemy->getCollisionRec().height,
-            //    RED
-            //);
         }
 
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -446,36 +434,12 @@ void UpdateGameplayScreen(void)
             }
         }
 
-        //Licznik fps pomagaj¹cy zdecydowaæ czy czas na wymianê gpu
-        int currentFPS;
-        std::string fpsString;
-        currentFPS = GetFPS();
-        fpsString = "FPS: " + std::to_string(currentFPS);
-        BeginDrawing();
-        DrawText(fpsString.c_str(), 20, 575, 20, WHITE);
+        DrawText(("FPS: " + std::to_string(GetFPS())).c_str(), 20, 575, 20, WHITE);
 
-        //Zegar do kontrolowania czasu spêdzanego przy tej wci¹gaj¹cej grze
-        time_t currentTime;
-        char buffer[80];
-        currentTime = time(NULL);
-        strftime(buffer, 80, "Godzina: %H:%M:%S", localtime(&currentTime));
-        BeginDrawing();
-        DrawText(buffer, 160, 575, 20, WHITE);
-
-        //Licznik czasu spêdzonego w grze
         double elapsedTime = GetTime() - startTime;
         int minutes = (int)(elapsedTime / 60.0);
         int seconds = (int)(elapsedTime) % 60;
-        std::string timeString = "Czas w grze: " + std::to_string(minutes) + ":" + std::to_string(seconds);
-        DrawText(timeString.c_str(), 380, 575, 20, WHITE);
 
-        //Licznik ciosów mieczem
-        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-        {
-            clickCount=clickCount+1;
-        }
-        std::string clickString = "Ciosy mieczem: " + std::to_string(clickCount);
-        DrawText(clickString.c_str(), 617, 575, 20, WHITE);
 
         if(IsKeyDown(KEY_LEFT_SHIFT))
         {
@@ -496,6 +460,7 @@ void UpdateGameplayScreen(void)
     outfile.open ("./game/experience.txt", std::ios::app);
     outfile << Character::experience << " - "<< name << std::endl;
     outfile.close();
+
     Character::key = 0;
     Character::goldAmount = 0;
     Character::experience = 0;

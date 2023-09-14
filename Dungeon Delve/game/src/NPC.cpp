@@ -1,7 +1,9 @@
 #include "NPC.h"
 
 NPC::NPC() {}
+
 NPC::~NPC() {}
+
 NPC::NPC(Vector2 pos, Texture2D tex) :
 	Prop(pos,tex)
 {
